@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#0048ad",
+        redAccent: "#ec5870",
         title: "rgb(0, 28, 69)",
         subTitle: "rgb(140, 136, 136)",
         error: "#f44336",
