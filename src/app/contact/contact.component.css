@@ -1,0 +1,3 @@
+.ng-invalid.ng-dirty.ng-touched, .message-input.ng-invalid.ng-touched {
+    border-bottom-color: #f44336;
+}
