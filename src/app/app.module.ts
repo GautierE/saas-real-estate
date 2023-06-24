@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { FeatureSectionComponent } from './feature-section/feature-section.component';
 import { LogoSectionComponent } from './logo-section/logo-section.component';
 import { SolutionsSectionComponent } from './solutions-section/solutions-section.component';
+import { SolutionsCardsComponent } from './solutions-cards/solutions-cards.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SolutionsSectionComponent } from './solutions-section/solutions-section
     FeatureSectionComponent,
     LogoSectionComponent,
     SolutionsSectionComponent,
+    SolutionsCardsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
