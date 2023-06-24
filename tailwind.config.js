@@ -24,6 +24,8 @@ module.exports = {
       },
       backgroundImage: {
         "background-pattern": "url(/assets/background-pattern.svg)",
+        "background-graphic":
+          "url(/assets/testimonials-section/testimonials-background-graphic.svg)",
       },
     },
   },
