@@ -23,9 +23,13 @@
                     <div *ngIf="phone.invalid && phone.dirty && phone.touched" class="mt-1 text-error">
                         Le numéro de téléphone est invalide
                     </div>
-                    <textarea class="focus:outline-none mt-10 text-lg leading-10 border-b-2 min-h-[200px] text-black"
-                        id="message" name="message" [(ngModel)]="message" placeholder="Votre message"
-                        required></textarea>
+                    <textarea
+                        class="message-input focus:outline-none mt-10 text-lg leading-10 border-b-2 min-h-[200px] text-black"
+                        id="message" name="message" [(ngModel)]="messageValue" placeholder="Votre message"
+                        #message="ngModel" required></textarea>
+                    <div *ngIf="message.invalid && message.touched" class="mt-1 text-error">
+                        Message vide
+                    </div>
                     <label class="mt-5 text-black cursor-pointer">
                         <input type="checkbox" [(ngModel)]="isChecked" name="isChecked" required>
                         En complétant ce formulaire, j'accepte les conditions d'utilisation et la politique de

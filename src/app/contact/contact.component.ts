@@ -12,7 +12,7 @@ export class ContactComponent {
 
   emailValue: string = '';
   phoneValue: string = '';
-  message: string = '';
+  messageValue: string = '';
   isChecked: boolean = false;
 
   submitForm() {
@@ -20,10 +20,38 @@ export class ContactComponent {
       return;
     }
 
-    console.log('Form submitted');
-    console.log('Email:', this.emailValue);
-    console.log('Phone:', this.phoneValue);
-    console.log('Message:', this.message);
+    const webhookData = {
+      username: '🧑‍💼 Employer 🧑‍💼',
+      avatar_url:
+        'https://entreprise.pole-emploi.fr/static/img/minisite/skmp5Lhrm9qj5v5Dr9htjMdERmVQrSCk.png',
+      embeds: [
+        {
+          title: '🎉🎉 Someone contacted you 🎉🎉',
+          color: 0x00ffff,
+          fields: [
+            { name: 'Email', value: this.emailValue },
+            { name: 'Phone', value: this.phoneValue },
+            { name: 'Message', value: this.messageValue },
+          ],
+        },
+      ],
+    };
+
+    fetch(
+      'https://discord.com/api/webhooks/1122180918875000842/7fO6slD5_ERDQHdsLnFw9deajZxjtbD2DzbNJnfgvM1Hf5r4VsvYHypVvEovPETbDvQd',
+      {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(webhookData),
+      }
+    );
 
     this.contactForm.resetForm();
   }
