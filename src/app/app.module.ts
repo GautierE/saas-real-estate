@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { FormsModule } from '@angular/forms';
 import { FeatureSectionComponent } from './feature-section/feature-section.component';
 import { LogoSectionComponent } from './logo-section/logo-section.component';
+import { SolutionsSectionComponent } from './solutions-section/solutions-section.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LogoSectionComponent } from './logo-section/logo-section.component';
     ContactComponent,
     FeatureSectionComponent,
     LogoSectionComponent,
+    SolutionsSectionComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
