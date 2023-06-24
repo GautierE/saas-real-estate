@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -6,19 +7,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent {
-  email: string = '';
-  phone: string = '';
+  @ViewChild('contactForm', { static: false })
+  contactForm!: NgForm;
+
+  emailValue: string = '';
+  phoneValue: string = '';
   message: string = '';
   isChecked: boolean = false;
 
   submitForm() {
+    if (this.contactForm.invalid) {
+      return;
+    }
+
     console.log('Form submitted');
-    console.log('Email:', this.email);
-    console.log('Phone:', this.phone);
+    console.log('Email:', this.emailValue);
+    console.log('Phone:', this.phoneValue);
     console.log('Message:', this.message);
 
-    this.email = '';
-    this.phone = '';
-    this.message = '';
+    this.contactForm.resetForm();
   }
 }

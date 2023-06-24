@@ -14,6 +14,7 @@ module.exports = {
         primary: "#0048ad",
         title: "rgb(0, 28, 69)",
         subTitle: "rgb(140, 136, 136)",
+        error: "#f44336",
       },
       backgroundImage: {
         "background-pattern": "url(/assets/background-pattern.svg)",
