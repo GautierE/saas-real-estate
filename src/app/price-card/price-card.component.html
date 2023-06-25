@@ -1,24 +1,21 @@
 <div
     class="relative bg-white w-[380px] text-black rounded-[30px] flex-grow-0 flex-shrink-0 basis-[25%] shadow-xl p-6 my-4 mx-6 h-full flex flex-col items-center justify-center">
-    <img class="absolute top-[-2rem] left-[-2rem] w-[80px]"
-        src="assets/solutions-section/solutions-cards/adb-360-logo-color.svg">
+    <img class="absolute top-[-2rem] left-[-2rem] w-[80px]" src={{cardData.logoPath}}>
 
-    <h4 class="self-start font-poppins font-bold text-[32px] ml-5 mb-5">ADB 360</h4>
+    <h4 class="self-start font-poppins font-bold text-[32px] ml-5 mb-5">{{cardData.title}}</h4>
 
     <p class="font-poppins text-[18px] font-normal mb-6">
-        Permet de réaliser des études locatives complètes, rechercher des références, accéder à des indicateurs et à une
-        représentation cartographique du marché.
+        {{cardData.paragraph}}
     </p>
     <ul>
-        <li class="font-poppins my-3 text-[18px]">Administrateur de biens</li>
-        <li class="font-poppins my-3 text-[18px]">Gestionnaire locatif</li>
-        <li class="font-poppins my-3 text-[18px]">Conseiller locatif</li>
-        <li class="font-poppins my-3 text-[18px]">Sybdic de propriété</li>
+        <li class="font-poppins my-3 text-[18px]" *ngFor="let item of cardData.items">{{ item }}</li>
     </ul>
-    <a
-        class="text-white text-center mt-10 px-10 py-3 border-4 rounded-full cursor-pointer border-adb360 bg-adb360 xl:max-w-[70%] 2xl:max-w-[60%]">
-        <span class="font-semibold font-poppins">
-            Voir les tarifs
-        </span>
-    </a>
+    <div class="flex flex-col items-center justify-end w-full h-full">
+        <a class="text-white text-center mt-10 px-10 py-3 border-4 rounded-full cursor-pointer xl:max-w-[70%] 2xl:max-w-[60%]"
+            [class]="'border-' + cardData.color + ' bg-' + cardData.color">
+            <span class="font-semibold font-poppins">
+                Voir les tarifs
+            </span>
+        </a>
+    </div>
 </div>
