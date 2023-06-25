@@ -7,6 +7,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HeaderSectionComponent } from './header-section/header-section.component';
 import { ContactComponent } from './contact/contact.component';
 import { FormsModule } from '@angular/forms';
+import { FeatureSectionComponent } from './feature-section/feature-section.component';
+import { LogoSectionComponent } from './logo-section/logo-section.component';
+import { SolutionsSectionComponent } from './solutions-section/solutions-section.component';
+import { SolutionsCardsComponent } from './solutions-cards/solutions-cards.component';
+import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
+import { NewsSectionComponent } from './news-section/news-section.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +20,12 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     HeaderSectionComponent,
     ContactComponent,
+    FeatureSectionComponent,
+    LogoSectionComponent,
+    SolutionsSectionComponent,
+    SolutionsCardsComponent,
+    TestimonialsSectionComponent,
+    NewsSectionComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
