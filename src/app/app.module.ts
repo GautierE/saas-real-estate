@@ -12,6 +12,7 @@ import { LogoSectionComponent } from './logo-section/logo-section.component';
 import { SolutionsSectionComponent } from './solutions-section/solutions-section.component';
 import { SolutionsCardsComponent } from './solutions-cards/solutions-cards.component';
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
+import { NewsSectionComponent } from './news-section/news-section.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TestimonialsSectionComponent } from './testimonials-section/testimonial
     SolutionsSectionComponent,
     SolutionsCardsComponent,
     TestimonialsSectionComponent,
+    NewsSectionComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
