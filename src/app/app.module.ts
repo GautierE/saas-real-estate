@@ -13,6 +13,7 @@ import { SolutionsSectionComponent } from './solutions-section/solutions-section
 import { SolutionsCardsComponent } from './solutions-cards/solutions-cards.component';
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { NewsSectionComponent } from './news-section/news-section.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NewsSectionComponent } from './news-section/news-section.component';
     SolutionsCardsComponent,
     TestimonialsSectionComponent,
     NewsSectionComponent,
+    FooterComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
