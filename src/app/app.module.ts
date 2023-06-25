@@ -14,6 +14,7 @@ import { SolutionsCardsComponent } from './solutions-cards/solutions-cards.compo
 import { TestimonialsSectionComponent } from './testimonials-section/testimonials-section.component';
 import { NewsSectionComponent } from './news-section/news-section.component';
 import { FooterComponent } from './footer/footer.component';
+import { PricesComponent } from './prices/prices.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FooterComponent } from './footer/footer.component';
     TestimonialsSectionComponent,
     NewsSectionComponent,
     FooterComponent,
+    PricesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
