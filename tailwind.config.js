@@ -8,6 +8,7 @@ module.exports = {
       mono: ["Inter"],
       title: ["Poppins"],
       poppins: ["Poppins"],
+      roboto: ["Roboto"],
     },
     extend: {
       colors: {
