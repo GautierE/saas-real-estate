@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +34,7 @@ import { PriceCardComponent } from './price-card/price-card.component';
     PricesComponent,
     PriceCardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
   providers: [],
   bootstrap: [AppComponent],
 })
