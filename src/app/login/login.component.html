@@ -7,10 +7,14 @@
             <h1 class="text-[24px] text-black">Connexion</h1>
             <h2 class="text-[16px]">Se connecter à Yanport</h2>
         </div>
-        <form class="flex flex-col items-center justify-center w-full mt-20">
-            <input class="w-full px-2 py-3 border" placeholder="E-mail">
-            <input class="w-full px-2 py-3 mt-1 border" placeholder="Mot de passe">
-            <p class="self-end text-[14px] text-redAccent mt-2">Mot de passe oublié ?</p>
+        <form class="flex flex-col items-center justify-center w-full mt-20" [formGroup]="form">
+            <input class="w-full px-2 py-3 border" placeholder="E-mail" formControlName="email">
+            <input class="w-full px-2 py-3 mt-1 border" placeholder="Mot de passe" formControlName="password">
+            <button [disabled]="!form.get('email')!.valid" class="self-end text-[14px] text-redAccent mt-2"
+                test-id="recover-password-button">Mot
+                de passe
+                oublié ?
+            </button>
             <button class="w-full p-2 mt-4 text-white border rounded bg-primary" type="submit">Se connecter</button>
         </form>
         <div class="flex flex-col items-center justify-center mt-20">
