@@ -1,0 +1,42 @@
+<div class="py-32 w-full text-[#757575] bg-[#F8F6F4] font-roboto">
+    <div class="flex flex-col mx-auto  shadow-xl md:w-[450px] p-8 bg-white min-h-[400px]">
+        <div class="flex items-center justify-center w-full">
+            <img alt="Yanport" src="https://pix.yanport.com/assets/logos/color/avatar-v2-60.svg">
+        </div>
+        <div class="flex flex-col items-center justify-center mt-5">
+            <h1 class="text-[24px] text-black">Connexion</h1>
+            <h2 class="text-[16px]">Se connecter à Yanport</h2>
+        </div>
+        <form class="flex flex-col items-center justify-center w-full mt-20" [formGroup]="form">
+            <mat-form-field class="w-full">
+                <mat-label>E-mail</mat-label>
+                <input type="email" matInput class="w-full" placeholder="E-mail" formControlName="email">
+                <mat-error *ngIf="form.get('email')!.hasError('required')">
+                    L'email est requise
+                </mat-error>
+                <mat-error *ngIf="form.get('email')!.hasError('email')">
+                    Veuillez entrer une adresse e-mail valide
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full mt-3">
+                <mat-label>Mot de passe</mat-label>
+                <input type="password" matInput class="w-full" placeholder="Mot de passe" formControlName="password">
+                <mat-error *ngIf="form.get('password')!.hasError('required')">
+                    Le mot de passe est requis
+                </mat-error>
+            </mat-form-field>
+            <button mat-button [disabled]="!form.get('email')!.valid" class="self-end text-[14px] text-redAccent mt-2"
+                test-id="recover-password-button">Mot
+                de passe
+                oublié ?
+            </button>
+            <button mat-raised-button [disabled]="!form.valid"
+                class="w-full p-2 mt-4 text-white border rounded bg-primary" type="submit" test-id="login-button">Se
+                connecter</button>
+        </form>
+        <div class="flex flex-col items-center justify-center mt-20">
+            <span class="text-[11px]">Vous n'avez pas encore de compte ?</span>
+            <span mat-stroked-button class="text-[14px]">Inscrivez-vous !</span>
+        </div>
+    </div>
+</div>
