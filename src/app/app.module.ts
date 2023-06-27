@@ -18,6 +18,8 @@ import { FooterComponent } from './footer/footer.component';
 import { PricesComponent } from './prices/prices.component';
 import { PriceCardComponent } from './price-card/price-card.component';
 import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    BrowserAnimationsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
