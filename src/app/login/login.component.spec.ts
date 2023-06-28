@@ -131,13 +131,80 @@ describe('LoginComponent', () => {
         });
       });
 
-      it('When login is successful, go to home app page', (done) => {
-        authenticationService._signInResponse.next({});
+      describe('When login is successful', () => {
+        beforeEach(() => {
+          authenticationService._signInResponse.next({});
+          fixture.detectChanges();
+        });
+
+        it('go to home app page', (done) => {
+          setTimeout(() => {
+            expect(location.path()).toEqual('/home');
+            done();
+          }, 100);
+        });
+
+        it('Show success message', () => {
+          expect(snackBar._isOpened).toBeTruthy();
+        });
+      });
+    });
+  });
+
+  describe('Recover password flow', () => {
+    describe('User clicks on recover password button', () => {
+      beforeEach(() => {
+        setEmail('any@email.com');
+        recoverPasswordButton().click();
         fixture.detectChanges();
-        setTimeout(() => {
-          expect(location.path()).toEqual('/home');
-          done();
-        }, 100);
+      });
+
+      it('Show recover loader', () => {
+        expect(recoverPasswordLoader()).not.toBeNull();
+      });
+
+      it('Hide recover password button', () => {
+        expect(recoverPasswordButton()).toBeNull();
+      });
+
+      describe('Recover fails', () => {
+        beforeEach(() => {
+          authenticationService._recoverPasswordResponse.error({
+            message: 'Recover error',
+          });
+          fixture.detectChanges();
+        });
+
+        it('Hide recover loader', () => {
+          expect(recoverPasswordLoader()).toBeNull();
+        });
+
+        it('Show recover password button', () => {
+          expect(recoverPasswordButton()).not.toBeNull();
+        });
+
+        it('Show error message', () => {
+          expect(snackBar._isOpened).toBeTruthy();
+        });
+      });
+
+      describe('Recover success', () => {
+        beforeEach(() => {
+          authenticationService._recoverPasswordResponse.next({});
+          fixture.detectChanges();
+        });
+
+        it('Hide recover loader', () => {
+          expect(recoverPasswordLoader()).toBeNull();
+        });
+
+        it('Show recover password button', () => {
+          expect(recoverPasswordButton()).not.toBeNull();
+        });
+
+        it('Show success message', () => {
+          expect(snackBar._isOpened).toBeTruthy();
+        });
       });
     });
   });
@@ -156,6 +223,10 @@ describe('LoginComponent', () => {
     return page.querySelector('[test-id="recover-password-button"]');
   }
 
+  function recoverPasswordLoader() {
+    return page.querySelector('[test-id="recover-password-loader"]');
+  }
+
   function loginButton() {
     return page.querySelector('[test-id="login-button"]');
   }
@@ -167,8 +238,13 @@ describe('LoginComponent', () => {
 
 class AuthenticationServiceMock {
   _signInResponse = new Subject();
+  _recoverPasswordResponse = new Subject();
   signIn() {
     return this._signInResponse.asObservable();
+  }
+
+  recoverPassword() {
+    return this._recoverPasswordResponse.asObservable();
   }
 }
 

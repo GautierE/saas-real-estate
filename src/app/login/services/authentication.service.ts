@@ -13,6 +13,10 @@ export class AuthenticationService {
       this.auth.signInWithEmailAndPassword(params.email, params.password)
     );
   }
+
+  recoverPassword(email: string): Observable<any> {
+    return from(this.auth.sendPasswordResetEmail(email));
+  }
 }
 
 interface SignIn {

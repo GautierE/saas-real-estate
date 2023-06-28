@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent {
   form!: FormGroup;
   isLoggingIn = false;
+  isRecoveringPassword = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +39,9 @@ export class LoginComponent {
       .subscribe(
         () => {
           this.router.navigate(['/home']);
+          this.snackBar.open('Connecté avec succès', 'OK', {
+            duration: 3000,
+          });
         },
         (error: any) => {
           this.isLoggingIn = false;
@@ -46,5 +50,24 @@ export class LoginComponent {
           });
         }
       );
+  }
+
+  recoverPassword() {
+    this.isRecoveringPassword = true;
+
+    this.authenticationService.recoverPassword(this.form.value.email).subscribe(
+      () => {
+        this.isRecoveringPassword = false;
+        this.snackBar.open('E-mail de récupération envoyé', 'OK', {
+          duration: 3000,
+        });
+      },
+      (error: any) => {
+        this.isRecoveringPassword = false;
+        this.snackBar.open(error.message, 'OK', {
+          duration: 3000,
+        });
+      }
+    );
   }
 }
