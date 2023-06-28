@@ -25,10 +25,16 @@
                     Le mot de passe est requis
                 </mat-error>
             </mat-form-field>
-            <button mat-button [disabled]="!form.get('email')!.valid" class="self-end text-[14px] text-redAccent mt-2"
+
+            <button (click)="recoverPassword()" *ngIf="!isRecoveringPassword" mat-button
+                [disabled]="!form.get('email')!.valid" class="self-end text-[14px] text-redAccent mt-2"
                 test-id="recover-password-button">Mot
                 de passe
                 oublié ?
+            </button>
+            <button *ngIf="isRecoveringPassword" mat-button class="self-end text-[14px] text-redAccent mt-2"
+                test-id="recover-password-loader">
+                <mat-spinner diameter="25"></mat-spinner>
             </button>
             <button mat-raised-button [disabled]="!form.valid" (click)="login()" *ngIf="!isLoggingIn"
                 class="w-full p-2 mt-4 text-white border rounded bg-primary" type="submit" test-id="login-button">Se
