@@ -49,19 +49,19 @@ export class SignupComponent {
         employeesCount: this.form.value.employeesCount,
         password: this.form.value.password,
       })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.router.navigate(['/login']);
           this.snackBar.open('Compte créé avec succès', 'OK', {
             duration: 3000,
           });
         },
-        (error: any) => {
+        error: (error: any) => {
           this.isSigningUp = false;
           this.snackBar.open(error.message, 'OK', {
             duration: 3000,
           });
-        }
-      );
+        },
+      });
   }
 }

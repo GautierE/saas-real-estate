@@ -239,6 +239,12 @@ describe('LoginComponent', () => {
 class AuthenticationServiceMock {
   _signInResponse = new Subject();
   _recoverPasswordResponse = new Subject();
+  _signedInCheckResponse = new Subject();
+
+  signedInCheck() {
+    return this._signedInCheckResponse.asObservable();
+  }
+
   signIn() {
     return this._signInResponse.asObservable();
   }

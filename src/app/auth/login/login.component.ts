@@ -40,38 +40,40 @@ export class LoginComponent {
         email: this.form.value.email,
         password: this.form.value.password,
       })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.router.navigate(['/home']);
           this.snackBar.open('Connecté avec succès', 'OK', {
             duration: 3000,
           });
         },
-        (error: any) => {
+        error: (error: any) => {
           this.isLoggingIn = false;
           this.snackBar.open(error.message, 'OK', {
             duration: 3000,
           });
-        }
-      );
+        },
+      });
   }
 
   recoverPassword() {
     this.isRecoveringPassword = true;
 
-    this.authenticationService.recoverPassword(this.form.value.email).subscribe(
-      () => {
-        this.isRecoveringPassword = false;
-        this.snackBar.open('E-mail de récupération envoyé', 'OK', {
-          duration: 3000,
-        });
-      },
-      (error: any) => {
-        this.isRecoveringPassword = false;
-        this.snackBar.open(error.message, 'OK', {
-          duration: 3000,
-        });
-      }
-    );
+    this.authenticationService
+      .recoverPassword(this.form.value.email)
+      .subscribe({
+        next: () => {
+          this.isRecoveringPassword = false;
+          this.snackBar.open('E-mail de récupération envoyé', 'OK', {
+            duration: 3000,
+          });
+        },
+        error: (error: any) => {
+          this.isRecoveringPassword = false;
+          this.snackBar.open(error.message, 'OK', {
+            duration: 3000,
+          });
+        },
+      });
   }
 }
