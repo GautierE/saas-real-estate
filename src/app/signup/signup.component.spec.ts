@@ -1,10 +1,16 @@
+import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Subject } from 'rxjs';
+import { AuthenticationService } from '../login/services/authentication.service';
+import { BlankComponent } from '../mocks/blank/blank.component';
 
 import { SignupComponent } from './signup.component';
 
@@ -12,24 +18,40 @@ describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
   let page: any;
+  let location: Location;
+  let authenticationService: AuthenticationServiceMock;
+  let snackBar: SnackBarMock;
 
   beforeEach(() => {
+    authenticationService = new AuthenticationServiceMock();
+    snackBar = new SnackBarMock();
+
     TestBed.configureTestingModule({
       declarations: [SignupComponent],
       imports: [
         ReactiveFormsModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: BlankComponent },
+        ]),
         MatSelectModule,
         MatCheckboxModule,
         MatInputModule,
         BrowserAnimationsModule,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    });
+    })
+      .overrideProvider(AuthenticationService, {
+        useValue: authenticationService,
+      })
+      .overrideProvider(MatSnackBar, {
+        useValue: snackBar,
+      });
     fixture = TestBed.createComponent(SignupComponent);
     component = fixture.componentInstance;
 
     page = fixture.debugElement.nativeElement;
 
+    location = TestBed.inject(Location);
     fixture.detectChanges();
   });
 
@@ -121,6 +143,52 @@ describe('SignupComponent', () => {
       it('Signup button is hidden', () => {
         expect(signUpButton()).toBeNull();
       });
+
+      describe('When Signup fails', () => {
+        beforeEach(() => {
+          authenticationService._signUpResponse.error({
+            message: 'signUpError',
+          });
+          fixture.detectChanges();
+        });
+
+        it('Do not go to login app page', (done) => {
+          setTimeout(() => {
+            expect(location.path()).not.toEqual('/login');
+            done();
+          }, 100);
+        });
+
+        it('Hide sign up loader', () => {
+          expect(signUpLoader()).toBeNull();
+        });
+
+        it('Show sign up button', () => {
+          expect(signUpButton()).not.toBeNull();
+        });
+
+        it('Show error message', () => {
+          expect(snackBar._isOpened).toBeTruthy();
+        });
+      });
+
+      describe('When login is successful', () => {
+        beforeEach(() => {
+          authenticationService._signUpResponse.next({});
+          fixture.detectChanges();
+        });
+
+        it('go to login app page', (done) => {
+          setTimeout(() => {
+            expect(location.path()).toEqual('/login');
+            done();
+          }, 100);
+        });
+
+        it('Show success message', () => {
+          expect(snackBar._isOpened).toBeTruthy();
+        });
+      });
     });
   });
 
@@ -172,3 +240,17 @@ describe('SignupComponent', () => {
     return page.querySelector('[test-id="signup-loader"]');
   }
 });
+
+class AuthenticationServiceMock {
+  _signUpResponse = new Subject();
+  signUp() {
+    return this._signUpResponse.asObservable();
+  }
+}
+
+class SnackBarMock {
+  _isOpened = false;
+  open() {
+    this._isOpened = true;
+  }
+}
