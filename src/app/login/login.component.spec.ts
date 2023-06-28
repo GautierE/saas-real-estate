@@ -57,7 +57,7 @@ describe('LoginComponent', () => {
     expect(recoverPasswordButton().disabled).toBeTruthy();
   });
 
-  it('when email is valid, recover password button should be disabled', () => {
+  it('when email is valid, recover password button should be enabled', () => {
     setEmail('test@email.com');
     expect(recoverPasswordButton().disabled).toBeFalsy();
   });

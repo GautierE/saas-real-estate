@@ -8,6 +8,12 @@ import { from, Observable } from 'rxjs';
 export class AuthenticationService {
   constructor(private auth: AngularFireAuth) {}
 
+  signUp(params: SignUp): Observable<any> {
+    return from(
+      this.auth.createUserWithEmailAndPassword(params.email, params.password)
+    );
+  }
+
   signIn(params: SignIn): Observable<any> {
     return from(
       this.auth.signInWithEmailAndPassword(params.email, params.password)
@@ -17,6 +23,11 @@ export class AuthenticationService {
   recoverPassword(email: string): Observable<any> {
     return from(this.auth.sendPasswordResetEmail(email));
   }
+}
+
+interface SignUp {
+  email: string;
+  password: string;
 }
 
 interface SignIn {
