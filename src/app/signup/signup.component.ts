@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SignupComponent {
   form!: FormGroup;
+  isSigningUp = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -22,5 +23,9 @@ export class SignupComponent {
       password: ['', [Validators.required]],
       tosAgreed: [false, [Validators.required]],
     });
+  }
+
+  signUp() {
+    this.isSigningUp = true;
   }
 }

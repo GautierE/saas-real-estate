@@ -50,7 +50,7 @@
             <mat-form-field class="w-full bg-white">
                 <mat-label>Votre fonction</mat-label>
                 <mat-select class="w-full" id="employeesCount" formControlName="employeesCount">
-                    <mat-option value="">Selectionnez une fonction</mat-option>
+                    <mat-option value="">Nombre d'agents</mat-option>
                     <mat-option value="1 - 5">1 - 5</mat-option>
                     <mat-option value="6 - 20">6 - 20</mat-option>
                     <mat-option value="21 - 50">21 - 50</mat-option>
@@ -64,18 +64,18 @@
                     Le mot de passe est requis
                 </mat-error>
             </mat-form-field>
-            <mat-checkbox formControlName="tosAgreed" class="mt-2"> En complétant ce formulaire, j'accepte les
+            <mat-checkbox formControlName="tosAgreed" class="mt-2" required> En complétant ce formulaire, j'accepte les
                 conditions
                 d'utilisation et la politique de
                 confidentialité des services Yanport</mat-checkbox>
-            <button mat-raised-button [disabled]="!form.valid"
+            <button mat-raised-button *ngIf="!isSigningUp" (click)="signUp()" [disabled]="!form.valid"
                 class="w-full p-2 mt-4 text-white border rounded bg-primary" type="submit"
-                test-id="login-button">S'inscrire</button>
-            <!-- <button mat-raised-button *ngIf="isLoggingIn"
+                test-id="signup-button">S'inscrire</button>
+            <button mat-raised-button *ngIf="isSigningUp"
                 class="flex items-center justify-center w-full p-2 mt-4 text-white border rounded bg-primary"
-                type="submit" test-id="login-loader">
+                type="submit" test-id="signup-loader">
                 <mat-spinner diameter="25"></mat-spinner>
-            </button>  -->
+            </button>
         </form>
     </div>
 </div>
