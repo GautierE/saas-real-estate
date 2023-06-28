@@ -1,3 +1,4 @@
+import { environment } from '../environments/environment';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,6 +21,8 @@ import { PriceCardComponent } from './price-card/price-card.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,8 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     BrowserAnimationsModule,
     MatInputModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
