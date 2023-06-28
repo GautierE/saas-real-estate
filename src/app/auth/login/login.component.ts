@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -21,6 +21,11 @@ export class LoginComponent {
   ) {}
 
   ngOnInit(): void {
+    this.authenticationService.signedInCheck().subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/home']);
+      }
+    });
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
