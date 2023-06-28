@@ -30,9 +30,14 @@
                 de passe
                 oublié ?
             </button>
-            <button mat-raised-button [disabled]="!form.valid"
+            <button mat-raised-button [disabled]="!form.valid" (click)="login()" *ngIf="!isLoggingIn"
                 class="w-full p-2 mt-4 text-white border rounded bg-primary" type="submit" test-id="login-button">Se
                 connecter</button>
+            <button mat-raised-button *ngIf="isLoggingIn"
+                class="flex items-center justify-center w-full p-2 mt-4 text-white border rounded bg-primary"
+                type="submit" test-id="login-loader">
+                <mat-spinner diameter="25"></mat-spinner>
+            </button>
         </form>
         <div class="flex flex-col items-center justify-center mt-20">
             <span class="text-[11px]">Vous n'avez pas encore de compte ?</span>
