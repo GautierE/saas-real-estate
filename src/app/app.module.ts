@@ -21,8 +21,12 @@ import { PriceCardComponent } from './price-card/price-card.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { BlankComponent } from './mocks/blank/blank.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     PricesComponent,
     PriceCardComponent,
     LoginComponent,
+    BlankComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     CommonModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
   ],
