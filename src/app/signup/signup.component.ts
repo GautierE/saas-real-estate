@@ -36,7 +36,12 @@ export class SignupComponent {
     this.isSigningUp = true;
     this.authenticationService
       .signUp({
+        firstName: this.form.value.firstName,
+        lastName: this.form.value.lastName,
         email: this.form.value.email,
+        phone: this.form.value.phone,
+        profession: this.form.value.profession,
+        employeesCount: this.form.value.employeesCount,
         password: this.form.value.password,
       })
       .subscribe(
