@@ -21,6 +21,11 @@ export class LoginComponent {
   ) {}
 
   ngOnInit(): void {
+    this.authenticationService.signedInCheck().subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/home']);
+      }
+    });
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
