@@ -32,6 +32,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,20 +1,56 @@
 import { Injectable } from '@angular/core';
+import firebase from 'firebase/compat/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { from, Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { from, Observable, throwError } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private auth: AngularFireAuth) {}
+  constructor(
+    private auth: AngularFireAuth,
+    private firestore: AngularFirestore
+  ) {}
 
   signedInCheck() {
     return from(this.auth.authState);
   }
 
   signUp(params: SignUp): Observable<any> {
-    return from(
-      this.auth.createUserWithEmailAndPassword(params.email, params.password)
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      profession,
+      employeesCount,
+      password,
+    } = params;
+
+    return from(this.auth.createUserWithEmailAndPassword(email, password)).pipe(
+      switchMap((userCredential: firebase.auth.UserCredential) => {
+        const { user } = userCredential;
+
+        if (user) {
+          const uid = user.uid;
+          const userDoc = this.firestore.collection('users').doc(uid);
+
+          return from(
+            userDoc.set({
+              firstName,
+              lastName,
+              email,
+              phone,
+              profession,
+              employeesCount,
+            })
+          );
+        } else {
+          return throwError(() => 'Erreur lors de la création du compte');
+        }
+      })
     );
   }
 
@@ -34,7 +70,12 @@ export class AuthenticationService {
 }
 
 interface SignUp {
+  firstName: string;
+  lastName: string;
   email: string;
+  phone: string;
+  profession: string;
+  employeesCount: string;
   password: string;
 }
 
