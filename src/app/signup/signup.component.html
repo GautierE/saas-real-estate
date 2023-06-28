@@ -1,0 +1,81 @@
+<div class="py-32 w-full text-[#757575] bg-[#F8F6F4] font-roboto">
+    <div class="flex flex-col mx-auto  shadow-xl md:w-[450px] p-8 bg-white min-h-[400px]">
+        <div class="flex items-center justify-center w-full">
+            <img alt="Yanport" src="https://pix.yanport.com/assets/logos/color/avatar-v2-60.svg">
+        </div>
+        <div class="flex flex-col items-center justify-center mt-5">
+            <h1 class="text-[24px] text-black">Connexion</h1>
+            <h2 class="text-[16px]">Se connecter à Yanport</h2>
+        </div>
+        <form class="flex flex-col items-center justify-center w-full mt-10" [formGroup]="form">
+            <mat-form-field class="w-full mt-3">
+                <mat-label>Prénom</mat-label>
+                <input type="text" matInput class="w-full" formControlName="firstName">
+                <mat-error *ngIf="form.get('firstName')!.hasError('required')">
+                    Le prénom est requis
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full mt-3">
+                <mat-label>Nom</mat-label>
+                <input type="text" matInput class="w-full" formControlName="lastName">
+                <mat-error *ngIf="form.get('lastName')!.hasError('required')">
+                    Le nom est requis
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>E-mail</mat-label>
+                <input type="email" matInput class="w-full" formControlName="email">
+                <mat-error *ngIf="form.get('email')!.hasError('required')">
+                    L'email est requise
+                </mat-error>
+                <mat-error *ngIf="form.get('email')!.hasError('email')">
+                    Veuillez entrer une adresse e-mail valide
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Téléphone</mat-label>
+                <input type="tel" matInput class="w-full" formControlName="phone">
+                <mat-error *ngIf="form.get('phone')!.hasError('required')">
+                    Le téléphone est requis
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Votre fonction</mat-label>
+                <mat-select class="w-full" id="profession" formControlName="profession">
+                    <mat-option value="">Selectionnez une fonction</mat-option>
+                    <mat-option value="Network manager">Responsable de reseau</mat-option>
+                    <mat-option value="Agency manager">Responsable d'agence</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full bg-white">
+                <mat-label>Votre fonction</mat-label>
+                <mat-select class="w-full" id="employeesCount" formControlName="employeesCount">
+                    <mat-option value="">Selectionnez une fonction</mat-option>
+                    <mat-option value="1 - 5">1 - 5</mat-option>
+                    <mat-option value="6 - 20">6 - 20</mat-option>
+                    <mat-option value="21 - 50">21 - 50</mat-option>
+                    <mat-option value="Plus de 50">Plus de 50</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full mt-3">
+                <mat-label>Mot de passe</mat-label>
+                <input type="password" matInput class="w-full" formControlName="password">
+                <mat-error *ngIf="form.get('password')!.hasError('required')">
+                    Le mot de passe est requis
+                </mat-error>
+            </mat-form-field>
+            <mat-checkbox formControlName="tosAgreed" class="mt-2"> En complétant ce formulaire, j'accepte les
+                conditions
+                d'utilisation et la politique de
+                confidentialité des services Yanport</mat-checkbox>
+            <button mat-raised-button [disabled]="!form.valid"
+                class="w-full p-2 mt-4 text-white border rounded bg-primary" type="submit"
+                test-id="login-button">S'inscrire</button>
+            <!-- <button mat-raised-button *ngIf="isLoggingIn"
+                class="flex items-center justify-center w-full p-2 mt-4 text-white border rounded bg-primary"
+                type="submit" test-id="login-loader">
+                <mat-spinner diameter="25"></mat-spinner>
+            </button>  -->
+        </form>
+    </div>
+</div>

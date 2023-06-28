@@ -19,14 +19,19 @@ import { FooterComponent } from './footer/footer.component';
 import { PricesComponent } from './prices/prices.component';
 import { PriceCardComponent } from './price-card/price-card.component';
 import { LoginComponent } from './login/login.component';
+import { BlankComponent } from './mocks/blank/blank.component';
+import { HomeComponent } from './home/home.component';
+import { SignupComponent } from './signup/signup.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { BlankComponent } from './mocks/blank/blank.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +51,7 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     BlankComponent,
     HomeComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +63,8 @@ import { HomeComponent } from './home/home.component';
     MatInputModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatSelectModule,
+    MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
   ],
