@@ -9,8 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Subject } from 'rxjs';
-import { AuthenticationService } from '../login/services/authentication.service';
-import { BlankComponent } from '../mocks/blank/blank.component';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { BlankComponent } from '../../mocks/blank/blank.component';
 
 import { SignupComponent } from './signup.component';
 

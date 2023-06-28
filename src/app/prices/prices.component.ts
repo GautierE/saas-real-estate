@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PriceCardInterface } from '../interfaces/PriceCardInterface';
+import { PriceCardInterface } from '../../interfaces/PriceCardInterface';
 
 @Component({
   selector: 'app-prices',
@@ -7,8 +7,7 @@ import { PriceCardInterface } from '../interfaces/PriceCardInterface';
 })
 export class PricesComponent {
   agent360CardData: PriceCardInterface = {
-    logoPath:
-      'assets/solutions-section/solutions-cards/agent-360-logo-color.svg',
+    logoPath: 'assets/solutions-logos/color/agent-360-logo-color.svg',
     title: 'AGENT 360',
     paragraph:
       "Regroupe des outils destinés à la prospection, création de dossiers d'estimations et d'études de marché ainsi qu'à la mise en place d'une veille immobilière performante.",
@@ -23,7 +22,7 @@ export class PricesComponent {
   };
 
   adb360CardData: PriceCardInterface = {
-    logoPath: 'assets/solutions-section/solutions-cards/adb-360-logo-color.svg',
+    logoPath: 'assets/solutions-logos/color/adb-360-logo-color.svg',
     title: 'ADB 360',
     paragraph:
       'Permet de réaliser des études locatives complètes, rechercher des références, accéder à des indicateurs et à une représentation cartographique du marché.',
@@ -37,8 +36,7 @@ export class PricesComponent {
   };
 
   data360CardData: PriceCardInterface = {
-    logoPath:
-      'assets/solutions-section/solutions-cards/data-360-logo-color.svg',
+    logoPath: 'assets/solutions-logos/color/data-360-logo-color.svg',
     title: 'DATA 360',
     paragraph:
       'Regroupe des outils destinés aux analyses et études de marchés ainsi qu’à la consultation en ligne des produits en cours et hors commercialisation.',
@@ -54,7 +52,7 @@ export class PricesComponent {
   };
 
   apiCardData: PriceCardInterface = {
-    logoPath: 'assets/solutions-section/solutions-cards/api-logo-color.svg',
+    logoPath: 'assets/solutions-logos/color/api-logo-color.svg',
     title: 'API',
     paragraph:
       "Destinée à tout type d'acteur ayant des besoins en données immobilières, notre API est la solution idéale pour associer votre expertise à nos données.",

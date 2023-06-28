@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PriceCardInterface } from '../interfaces/PriceCardInterface';
+import { PriceCardInterface } from '../../../interfaces/PriceCardInterface';
 
 @Component({
   selector: 'app-price-card',
