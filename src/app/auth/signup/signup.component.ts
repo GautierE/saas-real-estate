@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../login/services/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -36,7 +36,12 @@ export class SignupComponent {
     this.isSigningUp = true;
     this.authenticationService
       .signUp({
+        firstName: this.form.value.firstName,
+        lastName: this.form.value.lastName,
         email: this.form.value.email,
+        phone: this.form.value.phone,
+        profession: this.form.value.profession,
+        employeesCount: this.form.value.employeesCount,
         password: this.form.value.password,
       })
       .subscribe(
