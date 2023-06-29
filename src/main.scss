@@ -1,0 +1,55 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$yanport-palette: (
+  50: #0048ad,
+  100: #fff,
+  200: #fff,
+  300: #7986cb,
+  //unused
+  350: #7986cb,
+  400: #7986cb,
+  450: #7986cb,
+  500: #7986cb,
+  550: #7986cb,
+  600: #7986cb,
+  650: #7986cb,
+  700: #7986cb,
+  750: #7986cb,
+  800: #7986cb,
+  850: #7986cb,
+  900: #7986cb,
+  contrast: (
+    50: #0048ad,
+    100: #001c45,
+    200: #fff,
+    300: #7986cb,
+    350: #7986cb,
+    400: #7986cb,
+    450: #7986cb,
+    500: #7986cb,
+    550: #7986cb,
+    600: #7986cb,
+    650: #7986cb,
+    700: #7986cb,
+    750: #7986cb,
+    800: #7986cb,
+    850: #7986cb,
+    900: #7986cb,
+  ),
+);
+
+$my-primary: mat.define-palette($yanport-palette, 50);
+$my-accent: mat.define-palette($yanport-palette, 200);
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette($yanport-palette, 50),
+      accent: mat.define-palette($yanport-palette, 200),
+    ),
+  )
+);
+
+@include mat.core-theme($my-theme);
+@include mat.all-component-themes($my-theme);
