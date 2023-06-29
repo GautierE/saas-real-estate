@@ -10,21 +10,21 @@
         <form class="flex flex-col items-center justify-center w-full mt-10" [formGroup]="form">
             <mat-form-field class="w-full mt-3">
                 <mat-label>Prénom</mat-label>
-                <input type="text" matInput class="w-full" formControlName="firstName">
+                <input type="text" matInput class="w-full" formControlName="firstName" autocomplete="off">
                 <mat-error *ngIf="form.get('firstName')!.hasError('required')">
                     Le prénom est requis
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="w-full mt-3">
                 <mat-label>Nom</mat-label>
-                <input type="text" matInput class="w-full" formControlName="lastName">
+                <input type="text" matInput class="w-full" formControlName="lastName" autocomplete="off">
                 <mat-error *ngIf="form.get('lastName')!.hasError('required')">
                     Le nom est requis
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="w-full">
                 <mat-label>E-mail</mat-label>
-                <input type="email" matInput class="w-full" formControlName="email">
+                <input type="email" matInput class="w-full" formControlName="email" autocomplete="off">
                 <mat-error *ngIf="form.get('email')!.hasError('required')">
                     L'email est requise
                 </mat-error>
@@ -34,7 +34,7 @@
             </mat-form-field>
             <mat-form-field class="w-full">
                 <mat-label>Téléphone</mat-label>
-                <input type="tel" matInput class="w-full" formControlName="phone">
+                <input type="tel" matInput class="w-full" formControlName="phone" autocomplete="off">
                 <mat-error *ngIf="form.get('phone')!.hasError('required')">
                     Le téléphone est requis
                 </mat-error>
@@ -59,7 +59,7 @@
             </mat-form-field>
             <mat-form-field class="w-full mt-3">
                 <mat-label>Mot de passe</mat-label>
-                <input type="password" matInput class="w-full" formControlName="password">
+                <input type="password" matInput class="w-full" formControlName="password" autocomplete="off">
                 <mat-error *ngIf="form.get('password')!.hasError('required')">
                     Le mot de passe est requis
                 </mat-error>

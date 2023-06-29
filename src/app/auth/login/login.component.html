@@ -10,7 +10,8 @@
         <form class="flex flex-col items-center justify-center w-full mt-20" [formGroup]="form">
             <mat-form-field class="w-full">
                 <mat-label>E-mail</mat-label>
-                <input type="email" matInput class="w-full" placeholder="E-mail" formControlName="email">
+                <input type="email" matInput class="w-full" placeholder="E-mail" formControlName="email"
+                    autocomplete="off">
                 <mat-error *ngIf="form.get('email')!.hasError('required')">
                     L'email est requise
                 </mat-error>
@@ -20,7 +21,8 @@
             </mat-form-field>
             <mat-form-field class="w-full mt-3">
                 <mat-label>Mot de passe</mat-label>
-                <input type="password" matInput class="w-full" placeholder="Mot de passe" formControlName="password">
+                <input type="password" matInput class="w-full" placeholder="Mot de passe" formControlName="password"
+                    autocomplete="off">
                 <mat-error *ngIf="form.get('password')!.hasError('required')">
                     Le mot de passe est requis
                 </mat-error>

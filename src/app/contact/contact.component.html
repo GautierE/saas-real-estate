@@ -14,13 +14,13 @@
                 <form (ngSubmit)="submitForm()" class="flex flex-col" #contactForm="ngForm">
                     <input class="text-lg leading-10 text-black border-b-2 focus:outline-none" type="email" id="email"
                         name="email" [(ngModel)]="emailValue" placeholder="E-mail" required #email="ngModel"
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" autocomplete="off">
                     <div *ngIf="email.invalid && email.dirty && email.touched" class="mt-1 text-error">
                         L'adresse e-mail est invalide
                     </div>
                     <input class="mt-10 text-lg leading-10 text-black border-b-2 focus:outline-none" type="tel"
                         id="phone" name="phone" [(ngModel)]="phoneValue" required pattern="[0-9]{10}"
-                        placeholder="Numéro de téléphone" required #phone="ngModel">
+                        placeholder="Numéro de téléphone" required #phone="ngModel" autocomplete="off">
                     <div *ngIf="phone.invalid && phone.dirty && phone.touched" class="mt-1 text-error">
                         Le numéro de téléphone est invalide
                     </div>
