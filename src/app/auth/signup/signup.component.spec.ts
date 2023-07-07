@@ -172,7 +172,7 @@ describe('SignupComponent', () => {
         });
       });
 
-      describe('When login is successful', () => {
+      describe('When signup is successful', () => {
         beforeEach(() => {
           authenticationService._signUpResponse.next({});
           fixture.detectChanges();

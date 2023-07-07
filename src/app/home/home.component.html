@@ -5,4 +5,14 @@
     <button (click)="logout()" class="px-4 py-2 mt-12 border-4 text-primary rounded-xl border-primary">
         Se déconnecter
     </button>
+
+
+    <div *ngIf="properties.length > 0" class="mt-8">
+        <h2 class="text-xl font-semibold">Properties:</h2>
+        <ul>
+            <li *ngFor="let property of properties">
+                {{ property.address }}, {{ property.city }}, {{ property.state }} - Price: {{ property.price }}
+            </li>
+        </ul>
+    </div>
 </div>
