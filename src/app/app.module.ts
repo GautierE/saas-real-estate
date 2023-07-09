@@ -1,4 +1,4 @@
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.default';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -33,7 +33,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,8 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireAuthModule,
     AngularFirestoreModule,
     HttpClientModule,
+    HttpClientJsonpModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
