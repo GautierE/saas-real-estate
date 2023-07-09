@@ -22,6 +22,7 @@ const setEnv = () => {
       appId: "${process.env.APP_ID}"
     },
     apiURL: "${process.env.API_URL_DEV}",
+    mapsApiKey: "${process.env.MAPS_API_KEY}",
     production: false,
   };`;
 
@@ -36,6 +37,7 @@ const setEnv = () => {
       appId: "${process.env.APP_ID}"
     },
     apiURL: "${process.env.API_URL_DEV}",
+    mapsApiKey: "${process.env.MAPS_API_KEY}",
     production: false,
   };`;
 
@@ -50,6 +52,7 @@ const setEnv = () => {
         appId: "${process.env.APP_ID}"
       },
       apiURL: "${process.env.API_URL_PROD}",
+      mapsApiKey: "${process.env.MAPS_API_KEY}",
       production: true,
     };`;
 
