@@ -1,56 +1,43 @@
-// import { HomeComponent } from './home.component';
-// import { Location } from '@angular/common';
-// import { NO_ERRORS_SCHEMA } from '@angular/core';
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { ReactiveFormsModule } from '@angular/forms';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { BehaviorSubject } from 'rxjs';
-// import { BlankComponent } from '../mocks/blank/blank.component';
-// import { AuthenticationService } from '../../services/authentication.service';
+import { environment } from '../../environments/environment.default';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HomeComponent } from './home.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from '../../services/authentication.service';
+import { of } from 'rxjs';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-// describe('LoginComponent', () => {
-//   let component: HomeComponent;
-//   let fixture: ComponentFixture<HomeComponent>;
-//   let page: any;
-//   let location: Location;
-//   let authenticationService: AuthenticationServiceMock;
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  let authenticationService: AuthenticationService;
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [HomeComponent],
-//       imports: [
-//         ReactiveFormsModule,
-//         RouterTestingModule.withRoutes([
-//           { path: 'login', component: BlankComponent },
-//         ]),
-//       ],
-//       schemas: [NO_ERRORS_SCHEMA],
-//     }).overrideProvider(AuthenticationService, {
-//       useValue: authenticationService,
-//     });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [HomeComponent],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+      ],
+      providers: [AuthenticationService, AngularFireAuth, AngularFirestore],
+    }).compileComponents();
+  }));
 
-//     fixture = TestBed.createComponent(HomeComponent);
-//     location = TestBed.inject(Location);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    authenticationService = TestBed.inject(AuthenticationService);
+  });
 
-//     component = fixture.componentInstance;
-//     page = fixture.debugElement.nativeElement;
+  it('should load the map API successfully', () => {
+    const mockResponse = true;
+    spyOn(component['http'], 'jsonp').and.returnValue(of(mockResponse));
 
-//     fixture.detectChanges();
-//   });
-// });
+    fixture.detectChanges();
 
-// class AuthenticationServiceMock {
-//   private _authStateResponse = new BehaviorSubject(null);
-
-//   get authState() {
-//     return this._authStateResponse.asObservable();
-//   }
-
-//   setAuthState(authState: any) {
-//     this._authStateResponse.next(authState);
-//   }
-
-//   logout() {
-//     // return this._signInResponse.asObservable();
-//   }
-// }
+    expect(component.apiLoaded).toBeTruthy();
+  });
+});

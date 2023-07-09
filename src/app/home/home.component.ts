@@ -25,14 +25,8 @@ export class HomeComponent {
         'callback'
       )
       .pipe(
-        map(() => {
-          console.log('loaded');
-          return true;
-        }),
-        catchError((e) => {
-          console.log(e);
-          return of(false);
-        })
+        map(() => true),
+        catchError(() => of(false))
       );
   }
 
