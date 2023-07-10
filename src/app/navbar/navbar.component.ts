@@ -1,4 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +10,11 @@ import { Component, HostListener } from '@angular/core';
 export class NavbarComponent {
   scrollDistance: number = 0;
   isNavbarHidden: boolean = false;
+
+  constructor(
+    public router: Router,
+    private authenticationService: AuthenticationService
+  ) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -25,5 +32,11 @@ export class NavbarComponent {
       this.scrollDistance = scrollPosition;
       this.isNavbarHidden = false;
     }
+  }
+
+  logout() {
+    this.authenticationService.logout().then(() => {
+      this.router.navigate(['/login']);
+    });
   }
 }

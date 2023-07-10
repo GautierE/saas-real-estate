@@ -6,7 +6,6 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Property } from 'src/interfaces/Property';
-import { fakeAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-home',
