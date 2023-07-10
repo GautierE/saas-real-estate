@@ -1,12 +1,10 @@
-<div class="flex flex-col items-center justify-center w-full h-screen text-black font-poppins">
-    <h1 class="text-[16px] md:text-[30px] lg:text-[40px] font-semibold">Retrouvez la "vraie" application Yanport :</h1>
-    <a class="mt-3 text-primary text-[18px] md:text-[24px]" href="https://www.yanport.com/tarifs"
-        target="_blank">www.yanport.com/tarifs</a>
-    <button (click)="logout()" class="px-4 py-2 mt-12 border-4 text-primary rounded-xl border-primary">
+<div class="relative flex flex-col items-center justify-center w-full h-screen text-black font-poppins">
+    <button (click)="logout()"
+        class="absolute z-10 px-4 py-2 mt-12 bg-white border-4 text-primary rounded-xl border-primary top-14 right-5">
         Se déconnecter
     </button>
 
-    <div *ngIf="apiLoaded | async">
-        <google-map></google-map>
+    <div *ngIf="apiLoaded | async" class="w-full h-full">
+        <google-map height="100%" width="100%" [options]="googleMapsOptions"></google-map>
     </div>
 </div>

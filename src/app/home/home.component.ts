@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Property } from 'src/interfaces/Property';
+import { fakeAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,21 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class HomeComponent {
   apiLoaded: Observable<boolean>;
-  properties: any[] = [];
+  properties: Property[] = [];
+
+  googleMapsOptions: google.maps.MapOptions = {
+    center: { lat: 48.8566, lng: 2.3522 },
+    zoom: 13,
+    fullscreenControl: false,
+    streetViewControl: false,
+    mapTypeId: 'roadmap',
+    styles: [
+      {
+        featureType: 'poi',
+        stylers: [{ visibility: 'off' }],
+      },
+    ],
+  };
 
   constructor(
     private router: Router,
@@ -42,7 +58,7 @@ export class HomeComponent {
 
   getProperties() {
     this.http
-      .get<any[]>(`${environment.apiURL}/properties`)
+      .get<Property[]>(`${environment.apiURL}/properties`)
       .subscribe((response) => {
         if (response) {
           this.properties = response;

@@ -12,5 +12,8 @@
     <app-news-section></app-news-section>
   </ng-container>
   <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <ng-container *ngIf="(router.url !== '/home')">
+
+    <app-footer></app-footer>
+  </ng-container>
 </div>
