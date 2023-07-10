@@ -10,10 +10,12 @@ import { Property } from 'src/interfaces/Property';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
   apiLoaded: Observable<boolean>;
   properties: Property[] = [];
+  isSideMenuOpen = true;
   markerOptions: google.maps.MarkerOptions = {
     icon: {
       url: '/assets/map/home-pin.svg',
@@ -21,10 +23,12 @@ export class HomeComponent {
   };
 
   googleMapsOptions: google.maps.MapOptions = {
+    // Paris center coordinates
     center: { lat: 48.8566, lng: 2.3522 },
     zoom: 13,
     fullscreenControl: false,
     streetViewControl: false,
+    disableDefaultUI: true,
     mapTypeId: 'roadmap',
     styles: [
       {
@@ -76,5 +80,9 @@ export class HomeComponent {
     this.authenticationService.logout().then(() => {
       this.router.navigate(['/login']);
     });
+  }
+
+  toggleSideMenu() {
+    this.isSideMenuOpen = !this.isSideMenuOpen;
   }
 }
