@@ -17,7 +17,6 @@ import {
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
   animations: [
     trigger('openCloseSideMenu', [
       state(
@@ -35,6 +34,22 @@ import {
       transition('open => closed', [animate('0.5s')]),
       transition('closed => open', [animate('0.5s')]),
     ]),
+    trigger('rotateChevron', [
+      state(
+        'open',
+        style({
+          transform: 'rotate(90deg)',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          transform: 'rotate(0deg)',
+        })
+      ),
+      transition('open => closed', [animate('3s')]),
+      transition('closed => open', [animate('3s')]),
+    ]),
   ],
 })
 export class HomeComponent {
@@ -43,7 +58,7 @@ export class HomeComponent {
   isSideMenuOpen = true;
   markerOptions: google.maps.MarkerOptions = {
     icon: {
-      url: '/assets/map/home-pin.svg',
+      url: '/assets/home/map/home-pin.svg',
     },
   };
 

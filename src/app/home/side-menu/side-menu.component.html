@@ -1,8 +1,4 @@
-<div>
-    <h3>Properties</h3>
-    <ul>
-        <li *ngFor="let property of properties">
-            Latitude: {{ property.latitude }}, Longitude: {{ property.longitude }}
-        </li>
-    </ul>
+<div class="h-full px-1 overflow-x-visible overflow-y-scroll side-menu">
+    <app-property-card *ngFor="let property of properties" [property]="property">
+    </app-property-card>
 </div>

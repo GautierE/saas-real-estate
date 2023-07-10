@@ -36,6 +36,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SideMenuComponent } from './home/side-menu/side-menu.component';
+import { PropertyCardComponent } from './home/side-menu/property-card/property-card.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { SideMenuComponent } from './home/side-menu/side-menu.component';
     HomeComponent,
     SignupComponent,
     SideMenuComponent,
+    PropertyCardComponent,
   ],
   imports: [
     BrowserModule,
