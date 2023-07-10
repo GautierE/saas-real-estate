@@ -18,7 +18,11 @@
         <a class="cursor-pointer bg-white text-primary border px-[26px] py-1 rounded-[58px] ml-2"
             routerLink="/contact">Contact</a>
     </div>
-    <a *ngIf="(router.url === '/home')"
-        class="cursor-pointer bg-redAccent border-none border px-[26px] min-w-[10%] py-1 rounded-[58px] mx-2"
-        (click)="logout()">Se déconnecter</a>
+    <div *ngIf="(router.url === '/home')"
+        class="flex items-center justify-around ml-auto cursor-pointer basis-40 flex-nowrap whitespace-nowrap">
+        <a *ngIf="(router.url === '/home')"
+            class="cursor-pointer bg-redAccent border-none border px-[26px] py-1 rounded-[58px] mx-2"
+            (click)="logout()">Se déconnecter</a>
+    </div>
+
 </nav>

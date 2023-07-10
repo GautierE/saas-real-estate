@@ -14,6 +14,11 @@ import { Property } from 'src/interfaces/Property';
 export class HomeComponent {
   apiLoaded: Observable<boolean>;
   properties: Property[] = [];
+  markerOptions: google.maps.MarkerOptions = {
+    icon: {
+      url: '/assets/map/home-pin.svg',
+    },
+  };
 
   googleMapsOptions: google.maps.MapOptions = {
     center: { lat: 48.8566, lng: 2.3522 },

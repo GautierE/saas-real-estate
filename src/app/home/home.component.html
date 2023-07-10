@@ -1,8 +1,8 @@
 <div class="flex flex-col items-center justify-center w-full h-screen text-black font-poppins">
     <div *ngIf="apiLoaded | async" class="w-full h-full">
         <google-map height="100%" width="100%" [options]="googleMapsOptions">
-            <map-marker *ngFor="let property of properties"
-                [position]="{lat: property.latitude, lng: property.longitude}"></map-marker>
+            <map-marker *ngFor="let property of properties" [options]="markerOptions"
+                [position]="{lat: property.latitude, lng: property.longitude}" fillColor="#0048ad"></map-marker>
         </google-map>
     </div>
 </div>
