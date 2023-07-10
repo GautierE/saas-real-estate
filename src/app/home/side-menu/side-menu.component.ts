@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Property } from 'src/interfaces/Property';
 
 @Component({
@@ -8,4 +8,11 @@ import { Property } from 'src/interfaces/Property';
 })
 export class SideMenuComponent {
   @Input() properties!: Property[];
+  @Input() selectedProperty!: Property | null;
+  @Output() setPropertyEvent: EventEmitter<Property> =
+    new EventEmitter<Property>();
+
+  setNewSelectedProperty(property: Property) {
+    this.setPropertyEvent.emit(property);
+  }
 }

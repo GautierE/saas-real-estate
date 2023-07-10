@@ -55,6 +55,7 @@ import {
 export class HomeComponent {
   apiLoaded: Observable<boolean>;
   properties: Property[] = [];
+  selectedProperty: Property | null = null;
   isSideMenuOpen = true;
   markerOptions: google.maps.MarkerOptions = {
     icon: {
@@ -114,6 +115,10 @@ export class HomeComponent {
           console.log('Error occurred while fetching properties');
         }
       });
+  }
+
+  setSelectedProperty(property: Property) {
+    this.selectedProperty = property;
   }
 
   logout() {

@@ -1,13 +1,46 @@
-<div
-    class="flex flex-row items-center w-full p-1 my-2 ml-1 mr-2 bg-white border cursor-pointer rounded-xl border-primary">
-    <img *ngIf="property.propertyType === 'house' || property.propertyType === 'townhouse'"
-        class="bg-primary w-[60px] rounded-lg p-1" alt="House icon" src="/assets/home/properties/house-icon.svg">
-    <img *ngIf="property.propertyType === 'condo' || property.propertyType === 'apartment'"
-        class="bg-primary w-[60px] rounded-lg p-1" alt="Appartment icon"
-        src="/assets/home/properties/appartment-icon.svg">
+<div class="relative pointer-events-none">
+    <div (click)="setNewSelectedProperty(property)"
+        class="z-30 flex flex-row items-center w-1/6 p-1 my-2 ml-1 mr-2 bg-white border cursor-pointer pointer-events-auto rounded-xl border-primary">
+        <img *ngIf="property.propertyType === 'house' || property.propertyType === 'townhouse'"
+            class="bg-primary w-[60px] rounded-lg p-1" alt="House icon" src="/assets/home/properties/house-icon.svg">
+        <img *ngIf="property.propertyType === 'condo' || property.propertyType === 'apartment'"
+            class="bg-primary w-[60px] rounded-lg p-1" alt="Appartment icon"
+            src="/assets/home/properties/appartment-icon.svg">
 
-    <div class="flex flex-col ml-2">
-        <div>{{property.address}}</div>
-        <div class="p-1 rounded-full w-fit bg-adb360">{{property.price}}</div>
+        <div class="flex flex-col ml-2">
+            <div>{{property.address}}</div>
+            <div class="px-2 rounded-xl w-fit bg-adb360">{{property.price}} €</div>
+        </div>
+    </div>
+    <div [@openCloseDetail]="selectedProperty && selectedProperty.propertyId === property.propertyId ? 'open' : 'closed'"
+        class="flex flex-col z-30 absolute left-[17%] top-0 w-1/6 min-h-[300px] p-1 bg-white border cursor-pointer rounded-xl border-primary">
+        <div class="p-1 mt-5">
+            <p class="ml-2 font-bold text-[18px]">
+                Adresse
+            </p>
+            <p class="my-2 ml-5 text-[16px]">{{property.address}}</p>
+            <p class="my-2 ml-5 text-[16px]">{{property.postalCode}} - {{property.city}}, {{property.state}}</p>
+            <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+        </div>
+        <div class="p-1">
+            <p class="ml-2 font-bold text-[18px]">
+                Chambres
+            </p>
+            <p class="my-2 ml-5 text-[16px]">{{property.bedrooms}}</p>
+            <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+        </div>
+        <div class="p-1">
+            <p class="ml-2 font-bold text-[18px]">
+                Salles de bains
+            </p>
+            <p class="my-2 ml-5 text-[16px]">{{property.bathrooms}}</p>
+            <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+        </div>
+        <div class="p-1 mb-5">
+            <p class="ml-2 font-bold text-[18px]">
+                Année de construction
+            </p>
+            <p class="my-2 ml-5 text-[16px]">{{property.yearBuilt}}</p>
+        </div>
     </div>
 </div>

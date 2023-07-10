@@ -1,18 +1,21 @@
 <div class="relative flex flex-row items-center justify-center w-full h-screen text-black font-poppins">
-    <div [@openCloseSideMenu]="isSideMenuOpen ? 'open' : 'closed'" class="absolute top-0 left-0 z-20 w-1/6 h-full">
-        <app-side-menu [properties]="properties"></app-side-menu>
+    <div [@openCloseSideMenu]="isSideMenuOpen ? 'open' : 'closed'"
+        class="absolute top-0 left-0 z-30 w-full h-full pointer-events-none">
+        <app-side-menu [properties]="properties" [selectedProperty]="selectedProperty"
+            (setPropertyEvent)="setSelectedProperty($event)"></app-side-menu>
         <div [@rotateChevron]="isSideMenuOpen ? 'open' : 'closed'"
-            class="z-20 absolute top-5 right-[-20%] cursor-pointer">
+            class="z-20 absolute top-5 left-[-20%] cursor-pointer">
             <img (click)="toggleSideMenu()" class="bg-white rounded-[58px] w-[40px] border-2 border-primary"
                 src="/assets/home/chevron-right.svg" alt="chevron" />
         </div>
     </div>
     <div *ngIf="apiLoaded | async" class="relative w-full h-full">
-        <a class="z-20 absolute top-5 right-5 cursor-pointer bg-redAccent border-none border px-[26px] py-1 rounded-[58px]"
+        <a class="z-20 absolute top-5 right-5 text-white cursor-pointer bg-redAccent px-[26px] py-1 rounded-[58px]"
             (click)="logout()">Se
             déconnecter</a>
         <google-map height="100%" width="100%" [options]="googleMapsOptions">
-            <map-marker *ngFor="let property of properties" [options]="markerOptions"
+            <map-marker *ngFor="let property of properties" [options]="markerOptions" [clickable]="true"
+                (mapClick)="setSelectedProperty(property)"
                 [position]="{lat: property.latitude, lng: property.longitude}" fillColor="#0048ad"></map-marker>
         </google-map>
     </div>
