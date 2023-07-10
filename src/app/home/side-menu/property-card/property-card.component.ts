@@ -19,6 +19,7 @@ import {
         style({
           transform: 'translateX(0)',
           opacity: 1,
+          display: 'flex',
         })
       ),
       state(
@@ -26,10 +27,17 @@ import {
         style({
           transform: 'translateX(-100%)',
           opacity: 0,
+          display: 'none',
         })
       ),
-      transition('open => closed', [animate('0.5s')]),
-      transition('closed => open', [animate('0.5s')]),
+      transition('open => closed', [
+        style({ display: 'none' }),
+        animate('0.5s'),
+      ]),
+      transition('closed => open', [
+        style({ display: 'flex' }),
+        animate('0.5s'),
+      ]),
     ]),
   ],
 })
