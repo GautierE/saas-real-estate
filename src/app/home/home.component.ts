@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment.default';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { GoogleMap } from '@angular/google-maps';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,7 @@ import {
   ],
 })
 export class HomeComponent {
+  @ViewChild('googleMap') googleMap!: GoogleMap;
   apiLoaded: Observable<boolean>;
   properties: Property[] = [];
   selectedProperty: Property | null = null;
@@ -119,6 +121,7 @@ export class HomeComponent {
 
   setSelectedProperty(property: Property) {
     this.selectedProperty = property;
+    this.googleMap.panTo({ lat: property.latitude, lng: property.longitude });
   }
 
   logout() {
