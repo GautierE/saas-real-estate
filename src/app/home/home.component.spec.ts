@@ -1,56 +1,138 @@
-// import { HomeComponent } from './home.component';
-// import { Location } from '@angular/common';
-// import { NO_ERRORS_SCHEMA } from '@angular/core';
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { ReactiveFormsModule } from '@angular/forms';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { BehaviorSubject } from 'rxjs';
-// import { BlankComponent } from '../mocks/blank/blank.component';
-// import { AuthenticationService } from '../../services/authentication.service';
+import { environment } from '../../environments/environment.default';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HomeComponent } from './home.component';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from '../../services/authentication.service';
+import { of } from 'rxjs';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Property } from 'src/interfaces/Property';
+import { PropertyRead } from '@angular/compiler';
 
-// describe('LoginComponent', () => {
-//   let component: HomeComponent;
-//   let fixture: ComponentFixture<HomeComponent>;
-//   let page: any;
-//   let location: Location;
-//   let authenticationService: AuthenticationServiceMock;
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  let authenticationService: AuthenticationService;
+  let httpMock: HttpTestingController;
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [HomeComponent],
-//       imports: [
-//         ReactiveFormsModule,
-//         RouterTestingModule.withRoutes([
-//           { path: 'login', component: BlankComponent },
-//         ]),
-//       ],
-//       schemas: [NO_ERRORS_SCHEMA],
-//     }).overrideProvider(AuthenticationService, {
-//       useValue: authenticationService,
-//     });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [HomeComponent],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+      ],
+      providers: [AuthenticationService, AngularFireAuth, AngularFirestore],
+    }).compileComponents();
+  }));
 
-//     fixture = TestBed.createComponent(HomeComponent);
-//     location = TestBed.inject(Location);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    authenticationService = TestBed.inject(AuthenticationService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
 
-//     component = fixture.componentInstance;
-//     page = fixture.debugElement.nativeElement;
+  it('should load the map API successfully', () => {
+    const mockResponse = true;
+    spyOn(component['http'], 'jsonp').and.returnValue(of(mockResponse));
 
-//     fixture.detectChanges();
-//   });
-// });
+    fixture.detectChanges();
 
-// class AuthenticationServiceMock {
-//   private _authStateResponse = new BehaviorSubject(null);
+    expect(component.apiLoaded).toBeTruthy();
+  });
 
-//   get authState() {
-//     return this._authStateResponse.asObservable();
-//   }
+  it('should fetch properties successfully', () => {
+    const mockResponse: Property[] = getPropertiesMockData();
 
-//   setAuthState(authState: any) {
-//     this._authStateResponse.next(authState);
-//   }
+    component.getProperties();
 
-//   logout() {
-//     // return this._signInResponse.asObservable();
-//   }
-// }
+    const request = httpMock.expectOne(`${environment.apiURL}/properties`);
+    expect(request.request.method).toBe('GET');
+
+    request.flush(mockResponse);
+
+    expect(component.properties).toEqual(mockResponse);
+  });
+});
+
+function getPropertiesMockData(): Property[] {
+  return [
+    {
+      propertyId: 42,
+      propertyType: 'townhouse',
+      address: '5811 American Ash Trail',
+      city: 'Paris',
+      state: 'Ile de france',
+      postalCode: 75000,
+      price: 0.0,
+      bedrooms: 6,
+      bathrooms: 1,
+      yearBuilt: 1855,
+      latitude: 48.858837,
+      longitude: 2.294518,
+    },
+    {
+      propertyId: 320,
+      propertyType: 'house',
+      address: '12475 Pankratz Pass',
+      city: 'Paris',
+      state: 'Ile de france',
+      postalCode: 75000,
+      price: 0.0,
+      bedrooms: 7,
+      bathrooms: 3,
+      yearBuilt: 1844,
+      latitude: 48.876366,
+      longitude: 2.362022,
+    },
+    {
+      propertyId: 831,
+      propertyType: 'townhouse',
+      address: '36127 Corben Center',
+      city: 'Paris',
+      state: 'Ile de france',
+      postalCode: 75000,
+      price: 0.0,
+      bedrooms: 9,
+      bathrooms: 3,
+      yearBuilt: 1950,
+      latitude: 48.852013,
+      longitude: 2.326807,
+    },
+    {
+      propertyId: 153,
+      propertyType: 'townhouse',
+      address: '1936 Park Meadow Drive',
+      city: 'Paris',
+      state: 'Ile de france',
+      postalCode: 75000,
+      price: 0.0,
+      bedrooms: 6,
+      bathrooms: 1,
+      yearBuilt: 1948,
+      latitude: 48.854626,
+      longitude: 2.341992,
+    },
+    {
+      propertyId: 178,
+      propertyType: 'apartment',
+      address: '86 Dryden Alley',
+      city: 'Paris',
+      state: 'Ile de france',
+      postalCode: 75000,
+      price: 0.0,
+      bedrooms: 10,
+      bathrooms: 3,
+      yearBuilt: 1891,
+      latitude: 48.855206,
+      longitude: 2.355568,
+    },
+  ];
+}
