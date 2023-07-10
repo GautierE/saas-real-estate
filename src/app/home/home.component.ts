@@ -6,11 +6,36 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Property } from 'src/interfaces/Property';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  animations: [
+    trigger('openCloseSideMenu', [
+      state(
+        'open',
+        style({
+          transform: 'translateX(0)',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          transform: 'translateX(-100%)',
+        })
+      ),
+      transition('open => closed', [animate('0.5s')]),
+      transition('closed => open', [animate('0.5s')]),
+    ]),
+  ],
 })
 export class HomeComponent {
   apiLoaded: Observable<boolean>;
