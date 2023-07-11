@@ -16,46 +16,51 @@
         class="flex-col z-30 absolute left-[17%] top-0 w-1/6 min-h-[300px] p-1 bg-white border rounded-xl border-primary pointer-events-auto">
         <form [formGroup]="propertyForm">
 
-            <div class="flex justify-end">
-                <button class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded" (click)="toggleEdit()">
-                    Edit
+            <div class="flex justify-end mr-1 mt-1">
+                <button class="cursor-pointer bg-primary p-2 rounded-lg" (click)="toggleEdit()">
+                    <img alt="Modifier" class="w-[30px]" src="/assets/home/properties/edit-icon.svg" />
                 </button>
-                <button class="cursor-pointer bg-red-500 text-white px-4 py-2 rounded ml-2" (click)="deleteProperty()">
-                    Delete
+                <button class="cursor-pointer bg-redAccent p-2 rounded-lg ml-2" (click)="deleteProperty()">
+                    <img alt="Supprimer" class="w-[30px]" src="/assets/home/properties/delete-icon.svg" />
                 </button>
             </div>
 
-            <div class="p-1 mt-5">
+            <div class="p-1 mt-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Adresse
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent" formControlName="address">
-                <input class="my-2 ml-5 text-[16px] bg-transparent" formControlName="postalCode">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="address">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="postalCode">
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Chambres
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent" formControlName="bedrooms">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="bedrooms">
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Salles de bains
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent" formControlName="bathrooms">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="bathrooms">
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
-            <div class="p-1 mb-5">
+            <div class="p-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Année de construction
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent" formControlName="yearBuilt">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="yearBuilt">
             </div>
 
-            <div *ngIf="editMode" class="flex justify-end">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded" (click)="saveProperty()">
+            <div *ngIf="editMode" class="flex justify-end mb-2 mr-4">
+                <button class="cursor-pointer bg-primary py-2 px-4 rounded-lg text-white" (click)="saveProperty()">
                     Save
                 </button>
             </div>
