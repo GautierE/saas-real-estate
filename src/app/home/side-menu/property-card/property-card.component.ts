@@ -140,8 +140,6 @@ export class PropertyCardComponent {
         `${environment.apiURL}/property?propertyId=${this.property.propertyId}`
       )
       .subscribe((response) => {
-        console.log(response);
-
         if (response) {
           console.log('Property deleted successfully');
         } else {

@@ -1,4 +1,4 @@
-<div class="relative flex flex-row items-center justify-center w-full h-screen text-black font-poppins">
+<div class="relative flex flex-row items-center justify-center w-full h-screen text-black font-poppins overflow-hidden">
     <div [@openCloseSideMenu]="isSideMenuOpen ? 'open' : 'closed'"
         class="absolute top-0 left-0 z-30 w-full h-full pointer-events-none">
         <app-side-menu [properties]="properties" [selectedProperty]="selectedProperty"
@@ -13,11 +13,79 @@
         <a class="z-20 absolute top-5 right-5 text-white cursor-pointer bg-redAccent px-[26px] py-1 rounded-[58px]"
             (click)="logout()">Se
             déconnecter</a>
-        <google-map height="100%" width="100%" [options]="googleMapsOptions" (mapClick)="resetSelectedProperty()"
+        <google-map height="100%" width="100%" [options]="googleMapsOptions" (mapClick)="handleMapClick($event)"
             #googleMap>
             <map-marker *ngFor="let property of properties" [options]="markerOptions" [clickable]="true"
                 (mapClick)="setSelectedProperty(property)"
                 [position]="{lat: property.latitude, lng: property.longitude}" fillColor="#0048ad"></map-marker>
         </google-map>
+    </div>
+    <div [@openCloseCreateProperty]="isCreateMenuOpen ? 'open' : 'closed'"
+        class="absolute top-0 right-0 z-30 w-1/6 h-full bg-white overflow-hidden">
+        <form [formGroup]="propertyForm">
+            <div class="p-1 mt-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Type de propriété
+                </p>
+                <select class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    id="propertyType" formControlName="propertyType">
+                    <option value=""></option>
+                    <option value="apartment">Appartement</option>
+                    <option value="house">Maison</option>
+                </select>
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Adresse
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    formControlName="address" placeholder="Adresse">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    placeholder="Ville" formControlName="city">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    placeholder="Code postal" formControlName="postalCode">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    placeholder="Région" formControlName="state">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Prix
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    formControlName="price">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Chambres
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    formControlName="bedrooms">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Salles de bains
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    formControlName="bathrooms">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Année de construction
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                    formControlName="yearBuilt">
+            </div>
+
+            <div class="flex justify-end mb-2 mr-4">
+                <button class="cursor-pointer bg-primary py-2 px-4 rounded-lg text-white" (click)="createProperty()">
+                    Créer la propriété
+                </button>
+            </div>
+        </form>
     </div>
 </div>
