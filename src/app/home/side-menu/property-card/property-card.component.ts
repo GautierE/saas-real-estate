@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { Property } from 'src/interfaces/Property';
 import {
   trigger,
@@ -46,6 +53,18 @@ export class PropertyCardComponent {
   @Input() selectedProperty!: Property | null;
   @Output() setPropertyEvent: EventEmitter<Property> =
     new EventEmitter<Property>();
+
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
+
+  ngOnChanges() {
+    if (
+      this.selectedProperty &&
+      this.selectedProperty.propertyId === this.property.propertyId
+    ) {
+      const element = this.el.nativeElement;
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 
   setNewSelectedProperty(property: Property) {
     this.setPropertyEvent.emit(property);

@@ -124,6 +124,10 @@ export class HomeComponent {
     this.googleMap.panTo({ lat: property.latitude, lng: property.longitude });
   }
 
+  resetSelectedProperty() {
+    this.selectedProperty = null;
+  }
+
   logout() {
     this.authenticationService.logout().then(() => {
       this.router.navigate(['/login']);
