@@ -14,6 +14,7 @@ import {
   transition,
 } from '@angular/animations';
 import { GoogleMap } from '@angular/google-maps';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -51,6 +52,22 @@ import { GoogleMap } from '@angular/google-maps';
       transition('open => closed', [animate('3s')]),
       transition('closed => open', [animate('3s')]),
     ]),
+    trigger('openCloseCreateProperty', [
+      state(
+        'open',
+        style({
+          transform: 'translateX(0)',
+        })
+      ),
+      state(
+        'closed',
+        style({
+          transform: 'translateX(100%)',
+        })
+      ),
+      transition('open => closed', [animate('0.5s')]),
+      transition('closed => open', [animate('0.5s')]),
+    ]),
   ],
 })
 export class HomeComponent {
@@ -59,11 +76,14 @@ export class HomeComponent {
   properties: Property[] = [];
   selectedProperty: Property | null = null;
   isSideMenuOpen = true;
+  isCreateMenuOpen = false;
+  newPropertyLocation: google.maps.LatLng | null = null;
   markerOptions: google.maps.MarkerOptions = {
     icon: {
       url: '/assets/home/map/home-pin.svg',
     },
   };
+  propertyForm!: FormGroup;
 
   googleMapsOptions: google.maps.MapOptions = {
     // Paris center coordinates
@@ -84,7 +104,8 @@ export class HomeComponent {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private formBuilder: FormBuilder
   ) {
     this.apiLoaded = http
       .jsonp(
@@ -105,6 +126,17 @@ export class HomeComponent {
         this.getProperties();
       }
     });
+    this.propertyForm = this.formBuilder.group({
+      propertyType: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      bedrooms: ['', [Validators.required]],
+      bathrooms: ['', [Validators.required]],
+      yearBuilt: ['', [Validators.required]],
+    });
   }
 
   getProperties() {
@@ -117,6 +149,38 @@ export class HomeComponent {
           console.log('Error occurred while fetching properties');
         }
       });
+  }
+
+  createProperty() {
+    if (this.propertyForm.valid && this.newPropertyLocation) {
+      this.isCreateMenuOpen = false;
+
+      const newProperty: Property = {
+        propertyId: this.generateRandomUniqueId(),
+        propertyType: this.propertyForm.value.propertyType,
+        address: this.propertyForm.value.address,
+        city: this.propertyForm.value.city,
+        state: this.propertyForm.value.state,
+        postalCode: this.propertyForm.value.postalCode,
+        price: this.propertyForm.value.price,
+        bedrooms: this.propertyForm.value.bedrooms,
+        bathrooms: this.propertyForm.value.bathrooms,
+        yearBuilt: this.propertyForm.value.yearBuilt,
+        latitude: this.newPropertyLocation?.lat(),
+        longitude: this.newPropertyLocation?.lng(),
+      };
+
+      this.http
+        .post<Property>(`${environment.apiURL}/property`, newProperty)
+        .subscribe((response) => {
+          if (response) {
+            this.properties.push(newProperty);
+            console.log('Property updated successfully');
+          } else {
+            console.error('Error updating property');
+          }
+        });
+    }
   }
 
   setSelectedProperty(property: Property) {
@@ -136,5 +200,30 @@ export class HomeComponent {
 
   toggleSideMenu() {
     this.isSideMenuOpen = !this.isSideMenuOpen;
+  }
+
+  handleMapClick(event: google.maps.MapMouseEvent) {
+    if (this.selectedProperty) {
+      this.resetSelectedProperty();
+    } else {
+      this.isCreateMenuOpen = true;
+      this.newPropertyLocation = event.latLng;
+    }
+  }
+
+  generateRandomUniqueId(): number {
+    let randomId: number = 0;
+    let isUnique = false;
+
+    while (!isUnique) {
+      randomId = Math.floor(Math.random() * 1000000) + 1; // Generate a random number between 1 and 1000000
+
+      // Check if the generated ID already exists in the properties array
+      isUnique = !this.properties.some(
+        (property) => property.propertyId === randomId
+      );
+    }
+
+    return randomId;
   }
 }

@@ -13,34 +13,59 @@
         </div>
     </div>
     <div [@openCloseDetail]="selectedProperty && selectedProperty.propertyId === property.propertyId ? 'open' : 'closed'"
-        class="flex-col z-30 absolute left-[17%] top-0 w-1/6 min-h-[300px] p-1 bg-white border cursor-pointer rounded-xl border-primary">
-        <div class="p-1 mt-5">
-            <p class="ml-2 font-bold text-[18px]">
-                Adresse
-            </p>
-            <p class="my-2 ml-5 text-[16px]">{{property.address}}</p>
-            <p class="my-2 ml-5 text-[16px]">{{property.postalCode}} - {{property.city}}, {{property.state}}</p>
-            <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
-        </div>
-        <div class="p-1">
-            <p class="ml-2 font-bold text-[18px]">
-                Chambres
-            </p>
-            <p class="my-2 ml-5 text-[16px]">{{property.bedrooms}}</p>
-            <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
-        </div>
-        <div class="p-1">
-            <p class="ml-2 font-bold text-[18px]">
-                Salles de bains
-            </p>
-            <p class="my-2 ml-5 text-[16px]">{{property.bathrooms}}</p>
-            <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
-        </div>
-        <div class="p-1 mb-5">
-            <p class="ml-2 font-bold text-[18px]">
-                Année de construction
-            </p>
-            <p class="my-2 ml-5 text-[16px]">{{property.yearBuilt}}</p>
-        </div>
+        class="flex-col z-30 absolute left-[17%] top-0 w-1/6 min-h-[300px] p-1 bg-white border rounded-xl border-primary pointer-events-auto">
+        <form [formGroup]="propertyForm">
+
+            <div class="flex justify-end mr-1 mt-1">
+                <button class="cursor-pointer bg-primary p-2 rounded-lg" (click)="toggleEdit()">
+                    <img alt="Modifier" class="w-[30px]" src="/assets/home/properties/edit-icon.svg" />
+                </button>
+                <button class="cursor-pointer bg-redAccent p-2 rounded-lg ml-2" (click)="deleteProperty()">
+                    <img alt="Supprimer" class="w-[30px]" src="/assets/home/properties/delete-icon.svg" />
+                </button>
+            </div>
+
+            <div class="p-1 mt-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Adresse
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="address">
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="postalCode">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Chambres
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="bedrooms">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Salles de bains
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="bathrooms">
+                <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
+            </div>
+            <div class="p-1">
+                <p class="ml-2 font-bold text-[18px]">
+                    Année de construction
+                </p>
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary" [class.border]="editMode"
+                    [class.px-1]="editMode" formControlName="yearBuilt">
+            </div>
+
+            <div *ngIf="editMode" class="flex justify-end mb-2 mr-4">
+                <button class="cursor-pointer bg-primary py-2 px-4 rounded-lg text-white" (click)="saveProperty()">
+                    Enregistrer
+                </button>
+            </div>
+        </form>
     </div>
+
+
 </div>
