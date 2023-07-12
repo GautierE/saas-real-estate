@@ -107,7 +107,6 @@ export class HomeComponent {
     private http: HttpClient,
     private formBuilder: FormBuilder
   ) {
-    console.log(environment.mapsApiKey);
     this.apiLoaded = http
       .jsonp(
         `https://maps.googleapis.com/maps/api/js?key=${environment.mapsApiKey}`,
@@ -141,8 +140,6 @@ export class HomeComponent {
   }
 
   getProperties() {
-    console.log(environment.apiURL);
-
     this.http
       .get<Property[]>(`${environment.apiURL}/properties`)
       .subscribe((response) => {
