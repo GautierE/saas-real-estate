@@ -3,7 +3,7 @@
 <h1>Overview</h1>
 
 
-This project aims to reproduce the functionality of www.yanport.com using Angular. The main goal is to experiment with Angular while creating an application that contains a map feature similar to Yanport.
+This project aims to reproduce www.yanport.com using Angular. The main goal is to experiment with Angular while creating an application that contains a map feature similar to Yanport.
 
 <h2>Technical Stack</h2>
 <b>Technologies I am using for the first time are in bold characters</b>
