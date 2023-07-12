@@ -183,6 +183,21 @@ export class HomeComponent {
     }
   }
 
+  handleMapClick(event: google.maps.MapMouseEvent) {
+    if (this.selectedProperty) {
+      this.resetSelectedProperty();
+    } else {
+      this.isCreateMenuOpen = true;
+      this.newPropertyLocation = event.latLng;
+    }
+  }
+
+  logout() {
+    this.authenticationService.logout().then(() => {
+      this.router.navigate(['/login']);
+    });
+  }
+
   setSelectedProperty(property: Property) {
     this.selectedProperty = property;
     this.googleMap.panTo({ lat: property.latitude, lng: property.longitude });
@@ -192,23 +207,13 @@ export class HomeComponent {
     this.selectedProperty = null;
   }
 
-  logout() {
-    this.authenticationService.logout().then(() => {
-      this.router.navigate(['/login']);
-    });
-  }
-
   toggleSideMenu() {
     this.isSideMenuOpen = !this.isSideMenuOpen;
   }
 
-  handleMapClick(event: google.maps.MapMouseEvent) {
-    if (this.selectedProperty) {
-      this.resetSelectedProperty();
-    } else {
-      this.isCreateMenuOpen = true;
-      this.newPropertyLocation = event.latLng;
-    }
+  closeCreateMenu() {
+    this.isCreateMenuOpen = false;
+    this.propertyForm.reset();
   }
 
   generateRandomUniqueId(): number {

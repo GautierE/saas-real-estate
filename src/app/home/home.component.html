@@ -22,7 +22,11 @@
     </div>
     <div [@openCloseCreateProperty]="isCreateMenuOpen ? 'open' : 'closed'"
         class="absolute top-0 right-0 z-30 w-1/6 h-full overflow-hidden bg-white">
-        <form [formGroup]="propertyForm">
+        <form [formGroup]="propertyForm" class="relative">
+            <button class="absolute p-2 ml-2 rounded-lg cursor-pointer right-2 top-1 bg-redAccent"
+                (click)="closeCreateMenu()">
+                <img alt="Fermer" class="w-[20px]" src="/assets/home/cross-icon.svg" />
+            </button>
             <div class="p-1 mt-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Type de propriété
