@@ -32,7 +32,7 @@ You can access the live demo of this project at https://yanclone.vercel.app. Fee
 <h2>Getting Started</h2>
 To run this project locally, follow these steps:
 <ol>
-  <li>Clone the repository: git clone https://github.com/GautierE/yanclone.git</li>
+  <li>Clone the repository: git clone https://github.com/GautierE/saas-real-estate-clone.git</li>
   <li>Install dependencies: cd yanclone && npm install</li>
   <li>.env file configuration
 
