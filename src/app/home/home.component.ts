@@ -30,7 +30,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       state(
         'closed',
         style({
-          transform: 'translateX(-100%)',
+          transform: 'translateX(-18%)',
         })
       ),
       transition('open => closed', [animate('0.5s')]),
@@ -49,8 +49,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
           transform: 'rotate(0deg)',
         })
       ),
-      transition('open => closed', [animate('3s')]),
-      transition('closed => open', [animate('3s')]),
+      transition('open => closed', [animate('0.5s')]),
+      transition('closed => open', [animate('0.5s')]),
     ]),
     trigger('openCloseCreateProperty', [
       state(
@@ -65,8 +65,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
           transform: 'translateX(100%)',
         })
       ),
-      transition('open => closed', [animate('0.5s')]),
-      transition('closed => open', [animate('0.5s')]),
+      transition('open => closed', [animate('0.4s')]),
+      transition('closed => open', [animate('0.4s')]),
     ]),
   ],
 })

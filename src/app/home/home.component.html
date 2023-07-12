@@ -1,10 +1,10 @@
-<div class="relative flex flex-row items-center justify-center w-full h-screen text-black font-poppins overflow-hidden">
+<div class="relative flex flex-row items-center justify-center w-full h-screen overflow-hidden text-black font-poppins">
     <div [@openCloseSideMenu]="isSideMenuOpen ? 'open' : 'closed'"
         class="absolute top-0 left-0 z-30 w-full h-full pointer-events-none">
         <app-side-menu [properties]="properties" [selectedProperty]="selectedProperty"
             (setPropertyEvent)="setSelectedProperty($event)"></app-side-menu>
         <div [@rotateChevron]="isSideMenuOpen ? 'open' : 'closed'"
-            class="z-20 absolute top-5 left-[-20%] cursor-pointer">
+            class="z-20 absolute top-5 left-[19%] cursor-pointer pointer-events-auto">
             <img (click)="toggleSideMenu()" class="bg-white rounded-[58px] w-[40px] border-2 border-primary"
                 src="/assets/home/chevron-right.svg" alt="chevron" />
         </div>
@@ -21,7 +21,7 @@
         </google-map>
     </div>
     <div [@openCloseCreateProperty]="isCreateMenuOpen ? 'open' : 'closed'"
-        class="absolute top-0 right-0 z-30 w-1/6 h-full bg-white overflow-hidden">
+        class="absolute top-0 right-0 z-30 w-1/6 h-full overflow-hidden bg-white">
         <form [formGroup]="propertyForm">
             <div class="p-1 mt-1">
                 <p class="ml-2 font-bold text-[18px]">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="flex justify-end mb-2 mr-4">
-                <button class="cursor-pointer bg-primary py-2 px-4 rounded-lg text-white" (click)="createProperty()">
+                <button class="px-4 py-2 text-white rounded-lg cursor-pointer bg-primary" (click)="createProperty()">
                     Créer la propriété
                 </button>
             </div>
