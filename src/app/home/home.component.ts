@@ -130,14 +130,26 @@ export class HomeComponent {
     });
     this.propertyForm = this.formBuilder.group({
       propertyType: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      bedrooms: ['', [Validators.required]],
-      bathrooms: ['', [Validators.required]],
-      yearBuilt: ['', [Validators.required]],
+      address: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])[\w\s]+$/)],
+      ],
+      postalCode: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+      city: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])[\w\s]+$/)],
+      ],
+      state: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])[\w\s]+$/)],
+      ],
+      price: [
+        '',
+        [Validators.required, Validators.pattern(/^\d+(?:,\d{1,2})?$/)],
+      ],
+      bedrooms: ['', [Validators.required, Validators.pattern(/^\d{1,3}$/)]],
+      bathrooms: ['', [Validators.required, Validators.pattern(/^\d{1,3}$/)]],
+      yearBuilt: ['', [Validators.required, Validators.pattern(/^\d{1,4}$/)]],
     });
   }
 
@@ -177,8 +189,8 @@ export class HomeComponent {
       this.http
         .post<Property>(`${environment.apiURL}/property`, newProperty)
         .subscribe({
-          next: (response) => {
-            this.properties.push(newProperty);
+          next: () => {
+            this.properties.unshift(newProperty);
             this.propertyForm.reset();
             this.snackBar.open('Property created successfully', 'OK', {
               duration: 2000,

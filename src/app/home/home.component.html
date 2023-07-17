@@ -22,7 +22,7 @@
         </google-map>
     </div>
     <div [@openCloseCreateProperty]="isCreateMenuOpen ? 'open' : 'closed'"
-        class="absolute top-0 right-0 z-30 h-full overflow-x-hidden bg-white w-2/3 md:w-1/3 lg:w-[25%] 2xl:w-1/6">
+        class="absolute top-0 right-0 z-30 h-full overflow-y-scroll overflow-x-hidden bg-white w-2/3 md:w-1/3 lg:w-[25%] 2xl:w-1/6">
         <form [formGroup]="propertyForm" class="relative">
             <button class="absolute p-2 ml-2 rounded-lg cursor-pointer right-2 top-1 bg-redAccent"
                 (click)="closeCreateMenu()">
@@ -38,6 +38,10 @@
                     <option value="apartment">Appartement</option>
                     <option value="house">Maison</option>
                 </select>
+                <div *ngIf="propertyForm.get('propertyType')!.touched && propertyForm.get('propertyType')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le type de propriété est requis
+                </div>
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
@@ -46,12 +50,44 @@
                 </p>
                 <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
                     formControlName="address" placeholder="Adresse">
+                <div *ngIf="propertyForm.get('address')!.dirty && propertyForm.get('address')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    L'adresse est requise
+                </div>
+                <div *ngIf="propertyForm.get('address')!.dirty && propertyForm.get('address')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    L'adresse ne peut contenir uniquement des nombres
+                </div>
                 <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
                     placeholder="Ville" formControlName="city">
+                <div *ngIf="propertyForm.get('city')!.dirty && propertyForm.get('city')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    La ville est requise
+                </div>
+                <div *ngIf="propertyForm.get('city')!.dirty && propertyForm.get('city')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    La ville ne peut contenir uniquement des nombres
+                </div>
                 <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
-                    placeholder="Code postal" formControlName="postalCode">
+                    placeholder="Code postal" type="number" formControlName="postalCode">
+                <div *ngIf="propertyForm.get('postalCode')!.dirty && propertyForm.get('postalCode')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le code postal est requis
+                </div>
+                <div *ngIf="propertyForm.get('postalCode')!.dirty && propertyForm.get('postalCode')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le code postal doit contenir 5 chiffres
+                </div>
                 <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
                     placeholder="Région" formControlName="state">
+                <div *ngIf="propertyForm.get('state')!.dirty && propertyForm.get('state')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    La région est requise
+                </div>
+                <div *ngIf="propertyForm.get('state')!.dirty && propertyForm.get('state')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    La région ne peut contenir uniquement des nombres
+                </div>
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
@@ -60,30 +96,63 @@
                 </p>
                 <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
                     formControlName="price">
+                <div *ngIf="propertyForm.get('price')!.dirty && propertyForm.get('price')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le prix est requis
+                </div>
+                <div *ngIf="propertyForm.get('price')!.dirty && propertyForm.get('price')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le prix doit soit être entier soit contenir une ","
+                </div>
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Chambres
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border" type="number"
                     formControlName="bedrooms">
+                <div *ngIf="propertyForm.get('bedrooms')!.dirty && propertyForm.get('bedrooms')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le nombre de chambre(s) est requis
+                </div>
+                <div *ngIf="propertyForm.get('bedrooms')!.dirty && propertyForm.get('bedrooms')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le nombre de chambre(s) ne peut dépasser 999
+                </div>
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Salles de bains
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border" type="number"
                     formControlName="bathrooms">
+                <div *ngIf="propertyForm.get('bathrooms')!.dirty && propertyForm.get('bathrooms')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le nombre de salle(s) de bain est requis
+                </div>
+                <div *ngIf="propertyForm.get('bathrooms')!.dirty && propertyForm.get('bathrooms')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    Le nombre de salle(s) de bain ne peut dépasser 999
+                </div>
                 <div class="ml-2 mr-4 border-2 border-t-0 border-l-0 border-r-0 border-b-primary"></div>
             </div>
             <div class="p-1">
                 <p class="ml-2 font-bold text-[18px]">
                     Année de construction
                 </p>
-                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border"
+                <input class="my-2 ml-5 text-[16px] bg-transparent rounded-lg border-primary px-1 border" type="number"
                     formControlName="yearBuilt">
+                <div *ngIf="propertyForm.get('yearBuilt')!.dirty && propertyForm.get('yearBuilt')!.hasError('required')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    L'année de constructione est requise
+                </div>
+                <div *ngIf="propertyForm.get('yearBuilt')!.dirty && propertyForm.get('yearBuilt')!.hasError('pattern')"
+                    class="mb-2 ml-5 text-[14px] text-redAccent">
+                    L'année de construction ne peut dépasser 9999
+                </div>
+
             </div>
 
             <div class="flex justify-end mb-2 mr-4">
