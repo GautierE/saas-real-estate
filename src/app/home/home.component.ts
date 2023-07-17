@@ -184,6 +184,21 @@ export class HomeComponent {
     }
   }
 
+  deleteProperty(propertyId: number) {
+    this.http
+      .delete(`${environment.apiURL}/property?propertyId=${propertyId}`)
+      .subscribe((response) => {
+        if (response) {
+          this.properties = this.properties.filter(
+            (property) => property.propertyId !== propertyId
+          );
+          console.log('Property deleted successfully');
+        } else {
+          console.error('Error deleting property');
+        }
+      });
+  }
+
   handleMapClick(event: google.maps.MapMouseEvent) {
     if (this.selectedProperty) {
       this.resetSelectedProperty();

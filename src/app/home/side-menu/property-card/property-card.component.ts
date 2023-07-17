@@ -55,6 +55,8 @@ export class PropertyCardComponent {
   @Input() selectedProperty!: Property | null;
   @Output() setPropertyEvent: EventEmitter<Property> =
     new EventEmitter<Property>();
+  @Output() deletePropertyEvent: EventEmitter<number> =
+    new EventEmitter<number>();
   editMode: boolean = false;
   propertyForm!: FormGroup;
 
@@ -135,16 +137,6 @@ export class PropertyCardComponent {
   }
 
   deleteProperty() {
-    this.http
-      .delete(
-        `${environment.apiURL}/property?propertyId=${this.property.propertyId}`
-      )
-      .subscribe((response) => {
-        if (response) {
-          console.log('Property deleted successfully');
-        } else {
-          console.error('Error deleting property');
-        }
-      });
+    this.deletePropertyEvent.emit(this.property.propertyId);
   }
 }
