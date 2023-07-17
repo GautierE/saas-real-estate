@@ -1,5 +1,5 @@
 <div class="z-30 w-full h-full px-1 overflow-x-visible overflow-y-scroll side-menu">
     <app-property-card *ngFor="let property of properties" [property]="property" [selectedProperty]="selectedProperty"
-        (setPropertyEvent)="setNewSelectedProperty($event)">
+        (setPropertyEvent)="setNewSelectedProperty($event)" (deletePropertyEvent)="deleteProperty($event)">
     </app-property-card>
 </div>

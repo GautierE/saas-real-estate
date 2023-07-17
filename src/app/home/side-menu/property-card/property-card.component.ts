@@ -17,6 +17,7 @@ import {
   transition,
 } from '@angular/animations';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-property-card',
@@ -55,6 +56,8 @@ export class PropertyCardComponent {
   @Input() selectedProperty!: Property | null;
   @Output() setPropertyEvent: EventEmitter<Property> =
     new EventEmitter<Property>();
+  @Output() deletePropertyEvent: EventEmitter<number> =
+    new EventEmitter<number>();
   editMode: boolean = false;
   propertyForm!: FormGroup;
 
@@ -62,7 +65,8 @@ export class PropertyCardComponent {
     private renderer: Renderer2,
     private el: ElementRef,
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -124,27 +128,22 @@ export class PropertyCardComponent {
           `${environment.apiURL}/property?propertyId=${updatedProperty.propertyId}`,
           updatedProperty
         )
-        .subscribe((response) => {
-          if (response) {
-            console.log('Property updated successfully');
-          } else {
-            console.error('Error updating property');
-          }
+        .subscribe({
+          next: (response) => {
+            this.snackBar.open('Property updated successfully', 'OK', {
+              duration: 2000,
+            });
+          },
+          error: (error: any) => {
+            this.snackBar.open(error.message, 'OK', {
+              duration: 2000,
+            });
+          },
         });
     }
   }
 
   deleteProperty() {
-    this.http
-      .delete(
-        `${environment.apiURL}/property?propertyId=${this.property.propertyId}`
-      )
-      .subscribe((response) => {
-        if (response) {
-          console.log('Property deleted successfully');
-        } else {
-          console.error('Error deleting property');
-        }
-      });
+    this.deletePropertyEvent.emit(this.property.propertyId);
   }
 }

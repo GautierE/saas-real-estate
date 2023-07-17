@@ -11,8 +11,14 @@ export class SideMenuComponent {
   @Input() selectedProperty!: Property | null;
   @Output() setPropertyEvent: EventEmitter<Property> =
     new EventEmitter<Property>();
+  @Output() deletePropertyEvent: EventEmitter<number> =
+    new EventEmitter<number>();
 
   setNewSelectedProperty(property: Property) {
     this.setPropertyEvent.emit(property);
+  }
+
+  deleteProperty(propertyId: number) {
+    this.deletePropertyEvent.emit(propertyId);
   }
 }

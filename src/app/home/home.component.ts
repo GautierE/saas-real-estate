@@ -15,6 +15,7 @@ import {
 } from '@angular/animations';
 import { GoogleMap } from '@angular/google-maps';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       state(
         'closed',
         style({
-          transform: 'translateX(-18%)',
+          transform: `translateX(${getTranslateXPercentage()})`,
         })
       ),
       transition('open => closed', [animate('0.5s')]),
@@ -105,7 +106,8 @@ export class HomeComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.apiLoaded = http
       .jsonp(
@@ -128,27 +130,41 @@ export class HomeComponent {
     });
     this.propertyForm = this.formBuilder.group({
       propertyType: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      bedrooms: ['', [Validators.required]],
-      bathrooms: ['', [Validators.required]],
-      yearBuilt: ['', [Validators.required]],
+      address: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])[\w\s]+$/)],
+      ],
+      postalCode: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
+      city: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])[\w\s]+$/)],
+      ],
+      state: [
+        '',
+        [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])[\w\s]+$/)],
+      ],
+      price: [
+        '',
+        [Validators.required, Validators.pattern(/^\d+(?:,\d{1,2})?$/)],
+      ],
+      bedrooms: ['', [Validators.required, Validators.pattern(/^\d{1,3}$/)]],
+      bathrooms: ['', [Validators.required, Validators.pattern(/^\d{1,3}$/)]],
+      yearBuilt: ['', [Validators.required, Validators.pattern(/^\d{1,4}$/)]],
     });
   }
 
   getProperties() {
-    this.http
-      .get<Property[]>(`${environment.apiURL}/properties`)
-      .subscribe((response) => {
-        if (response) {
-          this.properties = response;
-        } else {
-          console.log('Error occurred while fetching properties');
-        }
-      });
+    this.http.get<Property[]>(`${environment.apiURL}/properties`).subscribe({
+      next: (response) => {
+        this.properties = response;
+      },
+      error: (error: any) => {
+        console.error('Error occurred while fetching properties');
+        this.snackBar.open(error.message, 'OK', {
+          duration: 2000,
+        });
+      },
+    });
   }
 
   createProperty() {
@@ -172,15 +188,41 @@ export class HomeComponent {
 
       this.http
         .post<Property>(`${environment.apiURL}/property`, newProperty)
-        .subscribe((response) => {
-          if (response) {
-            this.properties.push(newProperty);
-            console.log('Property updated successfully');
-          } else {
-            console.error('Error updating property');
-          }
+        .subscribe({
+          next: () => {
+            this.properties.unshift(newProperty);
+            this.propertyForm.reset();
+            this.snackBar.open('Property created successfully', 'OK', {
+              duration: 2000,
+            });
+          },
+          error: (error: any) => {
+            this.snackBar.open(error.message, 'OK', {
+              duration: 2000,
+            });
+          },
         });
     }
+  }
+
+  deleteProperty(propertyId: number) {
+    this.http
+      .delete(`${environment.apiURL}/property?propertyId=${propertyId}`)
+      .subscribe({
+        next: (response) => {
+          this.properties = this.properties.filter(
+            (property) => property.propertyId !== propertyId
+          );
+          this.snackBar.open('Property deleted successfully', 'OK', {
+            duration: 2000,
+          });
+        },
+        error: (error: any) => {
+          this.snackBar.open(error.message, 'OK', {
+            duration: 2000,
+          });
+        },
+      });
   }
 
   handleMapClick(event: google.maps.MapMouseEvent) {
@@ -190,6 +232,11 @@ export class HomeComponent {
       this.isCreateMenuOpen = true;
       this.newPropertyLocation = event.latLng;
     }
+  }
+
+  handleMarkerClick(property: Property) {
+    this.setSelectedProperty(property);
+    this.isSideMenuOpen = true;
   }
 
   logout() {
@@ -207,7 +254,10 @@ export class HomeComponent {
     this.selectedProperty = null;
   }
 
-  toggleSideMenu() {
+  handleSideMenuToggle() {
+    if (this.isSideMenuOpen) {
+      this.selectedProperty = null;
+    }
     this.isSideMenuOpen = !this.isSideMenuOpen;
   }
 
@@ -221,7 +271,7 @@ export class HomeComponent {
     let isUnique = false;
 
     while (!isUnique) {
-      randomId = Math.floor(Math.random() * 1000000) + 1; // Generate a random number between 1 and 1000000
+      randomId = Math.floor(Math.random() * 1000000) + 1;
 
       // Check if the generated ID already exists in the properties array
       isUnique = !this.properties.some(
@@ -231,4 +281,21 @@ export class HomeComponent {
 
     return randomId;
   }
+}
+
+function getTranslateXPercentage(): String {
+  let translatePercentage: String = '0';
+  const screenWidth: number = window.innerWidth;
+
+  if (screenWidth >= 1100) {
+    translatePercentage = '-18%';
+  } else if (screenWidth >= 1024) {
+    translatePercentage = '-23%';
+  } else if (screenWidth >= 768) {
+    translatePercentage = '-34%';
+  } else {
+    translatePercentage = '-68%';
+  }
+
+  return translatePercentage;
 }
