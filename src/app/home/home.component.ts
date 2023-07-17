@@ -175,6 +175,7 @@ export class HomeComponent {
         .subscribe((response) => {
           if (response) {
             this.properties.push(newProperty);
+            this.propertyForm.reset();
             console.log('Property updated successfully');
           } else {
             console.error('Error updating property');
@@ -221,7 +222,7 @@ export class HomeComponent {
     let isUnique = false;
 
     while (!isUnique) {
-      randomId = Math.floor(Math.random() * 1000000) + 1; // Generate a random number between 1 and 1000000
+      randomId = Math.floor(Math.random() * 1000000) + 1;
 
       // Check if the generated ID already exists in the properties array
       isUnique = !this.properties.some(
