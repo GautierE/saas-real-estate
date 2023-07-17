@@ -15,6 +15,7 @@ import {
 } from '@angular/animations';
 import { GoogleMap } from '@angular/google-maps';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -105,7 +106,8 @@ export class HomeComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.apiLoaded = http
       .jsonp(
@@ -140,15 +142,17 @@ export class HomeComponent {
   }
 
   getProperties() {
-    this.http
-      .get<Property[]>(`${environment.apiURL}/properties`)
-      .subscribe((response) => {
-        if (response) {
-          this.properties = response;
-        } else {
-          console.log('Error occurred while fetching properties');
-        }
-      });
+    this.http.get<Property[]>(`${environment.apiURL}/properties`).subscribe({
+      next: (response) => {
+        this.properties = response;
+      },
+      error: (error: any) => {
+        console.error('Error occurred while fetching properties');
+        this.snackBar.open(error.message, 'OK', {
+          duration: 2000,
+        });
+      },
+    });
   }
 
   createProperty() {
@@ -172,14 +176,19 @@ export class HomeComponent {
 
       this.http
         .post<Property>(`${environment.apiURL}/property`, newProperty)
-        .subscribe((response) => {
-          if (response) {
+        .subscribe({
+          next: (response) => {
             this.properties.push(newProperty);
             this.propertyForm.reset();
-            console.log('Property updated successfully');
-          } else {
-            console.error('Error updating property');
-          }
+            this.snackBar.open('Property created successfully', 'OK', {
+              duration: 2000,
+            });
+          },
+          error: (error: any) => {
+            this.snackBar.open(error.message, 'OK', {
+              duration: 2000,
+            });
+          },
         });
     }
   }
@@ -187,15 +196,20 @@ export class HomeComponent {
   deleteProperty(propertyId: number) {
     this.http
       .delete(`${environment.apiURL}/property?propertyId=${propertyId}`)
-      .subscribe((response) => {
-        if (response) {
+      .subscribe({
+        next: (response) => {
           this.properties = this.properties.filter(
             (property) => property.propertyId !== propertyId
           );
-          console.log('Property deleted successfully');
-        } else {
-          console.error('Error deleting property');
-        }
+          this.snackBar.open('Property deleted successfully', 'OK', {
+            duration: 2000,
+          });
+        },
+        error: (error: any) => {
+          this.snackBar.open(error.message, 'OK', {
+            duration: 2000,
+          });
+        },
       });
   }
 
