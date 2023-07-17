@@ -31,7 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       state(
         'closed',
         style({
-          transform: 'translateX(-18%)',
+          transform: `translateX(${getTranslateXPercentage()})`,
         })
       ),
       transition('open => closed', [animate('0.5s')]),
@@ -266,4 +266,21 @@ export class HomeComponent {
 
     return randomId;
   }
+}
+
+function getTranslateXPercentage(): String {
+  let translatePercentage: String = '0';
+  const screenWidth: number = window.innerWidth;
+
+  if (screenWidth >= 1100) {
+    translatePercentage = '-18%';
+  } else if (screenWidth >= 1024) {
+    translatePercentage = '-23%';
+  } else if (screenWidth >= 768) {
+    translatePercentage = '-34%';
+  } else {
+    translatePercentage = '-68%';
+  }
+
+  return translatePercentage;
 }
