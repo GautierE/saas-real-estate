@@ -17,8 +17,8 @@
         <google-map height="100%" width="100%" [options]="googleMapsOptions" (mapClick)="handleMapClick($event)"
             #googleMap>
             <map-marker *ngFor="let property of properties" [options]="markerOptions" [clickable]="true"
-                (mapClick)="setSelectedProperty(property)"
-                [position]="{lat: property.latitude, lng: property.longitude}" fillColor="#0048ad"></map-marker>
+                (mapClick)="handleMarkerClick(property)" [position]="{lat: property.latitude, lng: property.longitude}"
+                fillColor="#0048ad"></map-marker>
         </google-map>
     </div>
     <div [@openCloseCreateProperty]="isCreateMenuOpen ? 'open' : 'closed'"

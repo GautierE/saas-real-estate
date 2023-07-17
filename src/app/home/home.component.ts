@@ -208,6 +208,11 @@ export class HomeComponent {
     }
   }
 
+  handleMarkerClick(property: Property) {
+    this.setSelectedProperty(property);
+    this.isSideMenuOpen = true;
+  }
+
   logout() {
     this.authenticationService.logout().then(() => {
       this.router.navigate(['/login']);
