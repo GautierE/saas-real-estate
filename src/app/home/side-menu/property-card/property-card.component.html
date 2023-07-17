@@ -13,7 +13,7 @@
         </div>
     </div>
     <div [@openCloseDetail]="selectedProperty && selectedProperty.propertyId === property.propertyId ? 'open' : 'closed'"
-        class="flex-col z-30 absolute left-[17%] top-0 w-1/6 min-h-[300px] p-1 bg-white border rounded-xl border-primary pointer-events-auto">
+        class="flex-col z-30 absolute left-[17%] md:left-[34%] lg:left-[23%] xl:left-[17%] top-0 w-2/3 md:w-1/3 lg:w-[22%] xl:w-1/6 min-h-[300px] p-1 bg-white border rounded-xl border-primary pointer-events-auto">
         <form [formGroup]="propertyForm">
 
             <div class="flex justify-end mt-1 mr-1">

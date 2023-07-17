@@ -6,7 +6,7 @@
         </app-side-menu>
         <div [@rotateChevron]="isSideMenuOpen ? 'open' : 'closed'"
             class="z-20 absolute top-5 left-[70%] md:left-[35%] lg:left-[24%] xl:left-[19%] cursor-pointer pointer-events-auto">
-            <img (click)="toggleSideMenu()" class="bg-white rounded-[58px] w-[40px] border-2 border-primary"
+            <img (click)="handleSideMenuToggle()" class="bg-white rounded-[58px] w-[40px] border-2 border-primary"
                 src="/assets/home/chevron-right.svg" alt="chevron" />
         </div>
     </div>
@@ -22,7 +22,7 @@
         </google-map>
     </div>
     <div [@openCloseCreateProperty]="isCreateMenuOpen ? 'open' : 'closed'"
-        class="absolute top-0 right-0 z-30 w-1/6 h-full overflow-hidden bg-white">
+        class="absolute top-0 right-0 z-30 h-full overflow-x-hidden bg-white w-2/3 md:w-1/3 lg:w-[25%] 2xl:w-1/6">
         <form [formGroup]="propertyForm" class="relative">
             <button class="absolute p-2 ml-2 rounded-lg cursor-pointer right-2 top-1 bg-redAccent"
                 (click)="closeCreateMenu()">

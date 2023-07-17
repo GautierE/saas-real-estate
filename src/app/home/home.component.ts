@@ -242,7 +242,10 @@ export class HomeComponent {
     this.selectedProperty = null;
   }
 
-  toggleSideMenu() {
+  handleSideMenuToggle() {
+    if (this.isSideMenuOpen) {
+      this.selectedProperty = null;
+    }
     this.isSideMenuOpen = !this.isSideMenuOpen;
   }
 
